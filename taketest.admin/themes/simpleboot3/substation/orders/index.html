@@ -1,0 +1,160 @@
+<include file="substation/public@header" />
+</head>
+<body>
+<div class="layui-fluid">
+	<div class="layui-row">
+
+		<include file="substation/orders@top"/>
+
+		<div class="layui-page-content">
+			<div class="layui-card">
+				<div class="layui-card-body">
+					<form class="layui-form" method="post" action="{:url('orders/index')}">
+						<div class="layui-form-item layuiadmin-card-text">
+
+							<div class="layui-inline">
+								<label class="layui-form-label">
+									类型
+								</label>
+								<div class="layui-input-inline">
+									<select class="layui-input" name="type">
+										<option value="">全部</option>
+										<volist name="type" id="v">
+											<option value="{$key}" <if condition="input('request.type') neq '' && input('request.type') eq $key">selected</if>>{$v}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+
+							<div class="layui-inline">
+								<label class="layui-form-label">提交时间</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input js-bootstrap-date" name="start_time"
+										   value="{:input('request.start_time')}"
+										   autocomplete="off" placeholder="开始日期">
+								</div>
+								<div class="layui-form-mid">-</div>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input js-bootstrap-date" name="end_time"
+										   value="{:input('request.end_time')}"
+										   autocomplete="off" placeholder="结束日期">
+								</div>
+							</div>
+
+
+							<div class="layui-inline">
+								<label class="layui-form-label">用户ID</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" name="uid" value="{:input('request.uid')}" placeholder="请输入用户ID">
+								</div>
+							</div>
+
+							<div class="layui-inline">
+								<label class="layui-form-label">骑手ID</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" name="riderid" value="{:input('request.riderid')}" placeholder="请输入骑手ID">
+								</div>
+							</div>
+		
+							<div class="layui-inline">
+								<label class="layui-form-label">关键字</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" name="keyword" value="{:input('request.keyword')}" placeholder="请输入关键字">
+								</div>
+							</div>
+							<input type="hidden" name="active" value="{$active}">
+							<div class="layui-inline">
+								<div class="layui-input-inline">
+									<input type="submit" class="layui-btn btn-primary" value="搜索" />
+									<a class="layui-btn layui-btn-danger btn-danger" href="{:url('orders/index')}">清空</a>
+								</div>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	
+		<div class="layui-page-content">
+			<div class="layui-card">
+				<div class="layui-card-body">
+					<table class="layui-table" lay-even lay-size="lg">
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>订单号</th>
+							<th>类型</th>
+							<th>状态</th>
+							<th>下单用户</th>
+							<th>取件地址</th>
+							<th>收件地址</th>
+							<th>骑手</th>
+							<if condition="$active eq 7 ">
+								<th>原骑手</th>
+								<th>审核状态</th>
+							</if>
+							<th>下单时间</th>
+							<th>预期时间</th>
+
+							<th>{:lang('ACTIONS')}</th>
+						</tr>
+						</thead>
+						<tbody>
+						<foreach name="lists" item="vo">
+							<tr>
+								<td>{$vo.id}</td>
+								<td>{$vo.orderno}</td>
+								<td>{$type[$vo['type']]}</td>
+								<td>{$status[$vo['status']]}</td>
+								<td>{$vo['uinfo']['user_nickname']} ({$vo.id})</td>
+								<td>{$vo.from}</td>
+								<td>{$vo.to}</td>
+								<td>
+									<if condition="$vo['riderid'] neq 0 ">
+										{$vo['rinfo']['user_nickname']} ({$vo.riderid})<br>
+										电话：{$vo['rinfo']['mobile']}
+									</if>
+								</td>
+
+								<if condition="$active eq 7 ">
+									<td>
+										{$vo['oldrinfo']['user_nickname']} ({$vo.oldriderid})<br>
+										电话：{$vo['oldrinfo']['mobile']}
+									</td>
+									<td>{$vo.trans_t}</td>
+								</if>
+
+								<td>{$vo.add_time}</td>
+								<td>{$vo.expect_time}</td>
+
+								<td>
+
+									<a class="layui-bo layui-bo-small layui-bo-succes" href='{:url("orders/detail",array("id"=>$vo["id"]))}'>订单详情</a>
+
+									<if condition="$vo['status']==7">
+										<a class="layui-bo layui-bo-small layui-bo-close js-ajax-dialog-btn" href="{:url('orders/setrefund',array('id'=>$vo['id'],'status'=>9))}" data-msg="确定要拒绝申请么？">拒绝退款申请</a>
+										<a class="layui-bo layui-bo-small layui-bo-close js-ajax-dialog-btn" href="{:url('orders/setrefund',array('id'=>$vo['id'],'status'=>8))}" data-msg="确定要同意申请么？">同意退款申请</a>
+									</if>
+
+									<if condition="$vo['istrans']==2">
+										<a class="layui-bo layui-bo-small layui-bo-close js-ajax-dialog-btn" href="{:url('orders/setTrans',array('id'=>$vo['id'],'trans'=>3))}" data-msg="确定要拒绝转单么？">拒绝转单</a>
+										<a class="layui-bo layui-bo-small layui-bo-close js-ajax-dialog-btn" href="{:url('orders/setTrans',array('id'=>$vo['id'],'trans'=>1))}" data-msg="确定要同意转单么？">回订单池</a>
+									</if>
+
+								</td>
+							</tr>
+						</foreach>
+						</tbody>
+					</table>
+					<div class="pagination">{$page}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+<include file="substation/public@script"/>
+</body>
+</html>

@@ -1,0 +1,33 @@
+html,body{
+    min-height:740px;
+    height:100%;
+    background:#f5f5f5;
+}
+
+/* 隐藏滚动条 */
+.hidescroll{
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+}
+.hidescroll::-webkit-scrollbar { width: 0 !important }
+
+/* 列表样式 */
+input::-webkit-input-placeholder {
+/* WebKit browsers */
+color: #C8C8C8;
+}
+input:-moz-placeholder {
+/* Mozilla Firefox 4 to 18 */
+color: #C8C8C8;
+}
+input::-moz-placeholder {
+/* Mozilla Firefox 19+ */
+color: #C8C8C8;
+}
+input:-ms-input-placeholder {
+/* Internet Explorer 10+ */
+color: #C8C8C8;
+}

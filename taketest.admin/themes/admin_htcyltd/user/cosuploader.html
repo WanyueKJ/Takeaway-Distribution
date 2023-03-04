@@ -1,0 +1,233 @@
+<include file="public@header"/>
+<style>html{background-color: #ffffff}</style>
+<link rel="stylesheet" type="text/css" href="__ROOT__/static/js/webuploader/webuploader.css">
+<link rel="stylesheet" type="text/css" href="__ROOT__/static/js/webuploader/image-upload/style.css">
+</head>
+<body>
+<div class="layui-row layui-tab">
+	<div class="layui-side" style="background: #f5f7f9;">
+		<ul class="layui-if-menu" id="tabHeader">
+			<li class="layui-this"><i class="icon-icon layui-icon-android-upload"></i>上传文件腾讯云</li>
+		</ul>
+	</div>
+	<div class="layui-body">
+		<div class="layui-tab-item layui-show">
+			<div class="layui-tab-content" id="tabBody">
+				<div class="layui-tab-item layui-show">
+					<div id="container">
+						<!--头部，相册选择和格式选择-->
+						<div id="uploader">
+							<div class="queueList">
+								<div id="dndArea" class="placeholder">
+									<div id="filePicker" class="webuploader-container">
+										<div class="webuploader-pick">点击选择文件</div>
+										<div  style="display: none">
+											<input type="file" name="file" class="webuploader-element-invisible" accept="" id="filebd" onchange="cosupload()">
+										</div>
+										<p>选择小于{$upload_max_filesize_mb}M的文件！</p>
+									</div>
+								</div>
+
+								<ul class="filelist">
+								</ul>
+							</div>
+							<div class="statusBar" style="display:none;">
+								<div class="progress">
+									<span class="text">0%</span>
+									<span class="percentage"></span>
+								</div>
+								<div class="info"></div>
+								<div class="btns">
+									<div id="filePicker2"></div>
+									<div class="uploadBtn">上传中</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<include file="public@script"/>
+
+<script src="__ROOT__/static/tx/cos-js-sdk-v5.min.js"></script>
+<script type="text/javascript">
+
+	var httpUrl = "{:cmf_get_asset_url('')}";
+
+	function get_selected_files() {
+		var files = [];
+
+		var idPre = 'id' + new Date().getTime();
+
+		if (jQuery("#wrapper").is(":hidden")) {
+			var file         = new Object();
+			file.id          = idPre + '1';
+			file.filepath    = jQuery("#info").val();
+			file.preview_url = file.filepath;
+			file.url         = file.filepath;
+			file.name        = "";//jQuery(".filelist li .title").eq(i).html();
+			files.push(file);
+		} else {
+			var number = jQuery(".filelist li").size();
+			for (var i = 0; i < number; i++) {
+
+				var file         = new Object();
+				var $file        = jQuery(".filelist li").eq(i);
+				file.id          = idPre + i;
+				file.filepath    = $file.data("filepath");
+				file.preview_url = $file.data("preview_url");//httpUrl+file.filepath;
+				file.url         = $file.data("url");
+				file.name        = $file.data("name");
+				if (file.url == undefined) {
+					continue;
+				} else {
+					files.push(file);
+				}
+
+			}
+		}
+
+		return files;
+	}
+
+	var multi    = {$multi};//是否允许同时选多个文件
+	var maxFiles = {$max_files};//允许上传多少文件
+	var extensions = '{$extensions}';//允许后缀
+	let extension=extensions.split(',');
+	var app = '{$app}';
+	var filetype = '{$filetype}';
+	var upload_max_filesize = '{$upload_max_filesize}';
+
+	var fileErrorMsg = {};
+
+	var cos = new COS({
+		// getAuthorization 必选参数
+		getAuthorization: function (options, callback) {
+			callback({
+				TmpSecretId: "{$upconfig['sts']['tmpSecretId']}",
+				TmpSecretKey: "{$upconfig['sts']['tmpSecretKey']}",
+				SecurityToken: "{$upconfig['sts']['sessionToken']}",
+				// 建议返回服务器时间作为签名的开始时间，避免用户浏览器本地时间偏差过大导致签名错误
+				StartTime: "{$upconfig['sts']['startTime']}", // 时间戳，单位秒，如：1580000000
+				ExpiredTime: "{$upconfig['sts']['expiredTime']}", // 时间戳，单位秒，如：1580000000
+			});
+		}
+	});
+
+
+	function random(){
+		return (((1+Math.random())*0x10000)|0).toString(16);
+	}
+
+	function guUniqid(){
+		return (random()+random()+random()+random());
+	}
+
+	function setLoading(isload=0){
+		if(isload==1){
+			$('.statusBar').show();
+			$('#dndArea').hide();
+		}else{
+			$('.statusBar').hide();
+			$('#dndArea').show();
+		}
+	}
+	// 定义上传方法。
+	async function multipartUpload (file) {
+
+		if(file.size > upload_max_filesize){
+			layer.msg('文件大小超出限制');
+			return !1;
+		}
+
+		let name=file.name;
+
+		var last_len=name.lastIndexOf(".")+1;
+		var last_len2=name.lastIndexOf("?");
+		var len = name.length;
+		if(last_len2>0){
+			len=last_len2;
+		}
+		var ext = name.substring(last_len,len).toLowerCase();
+		let isallow=0;
+		for(let k in extension){
+			let v=extension[k];
+			if(v.toLowerCase()!=ext){
+				continue;
+			}
+			isallow=1;
+			break;
+		}
+
+		if(!isallow){
+			layer.msg('文件类型仅限：'+extensions);
+			return !1;
+		}
+
+		let filename=guUniqid()+'.'+ext;
+
+		var myDate = new Date();
+		let path=app+'/'+myDate.toLocaleDateString().replace(new RegExp('/','g'),'')+'/'+filename;
+		setLoading(1);
+
+		cos.putObject({
+			Bucket: "{$upconfig['bucket']}", /* 必须 */
+			Region: "{$upconfig['region']}",     /* 存储桶所在地域，必须字段 */
+			Key: path,              /* 必须 */
+			StorageClass: 'STANDARD',
+			Body: file, // 上传文件对象
+			onProgress: function(progressData) {
+				//console.log(progressData)
+				let per=Math.floor(progressData.percent*100)+'%';
+
+				$('.progress .text').html(per);
+				$('.progress .percentage').css({'width':per});
+			}
+		}, function(err, data) {
+			//console.log(err);
+			//console.log(data);
+			if(err){
+				setLoading(0);
+				layer.msg('文件上传失败');
+				return !1;
+			}
+
+			let url=httpUrl+path;
+
+			let html='<li class="state-complete" data-filepath="'+path+'" data-name="'+file.name+'" data-url="'+url+'" data-preview_url="'+url+'" >\n' +
+					'	<p class="title">'+file.name+'</p>\n' +
+					'	<p class="imgWrap">\n' +
+					'		<img src="'+url+'">\n' +
+					'	</p>\n' +
+					'	<p class="progress"><span style="display: none; width: 0px;"></span></p>\n' +
+					'	<span class="success"></span>\n' +
+					'</li>';
+
+			$('.filelist').append(html);
+			setLoading(0);
+			$('#dndArea').hide();
+
+		});
+	}
+
+	function cosupload(){
+		let file = $('#filebd')[0].files[0];
+		if(!file){
+			return !1;
+		}
+		//console.log(file);
+		// 开始分片上传。
+		multipartUpload(file);
+	}
+
+	(function ($) {
+
+		$('.webuploader-pick').click(function (){
+			$('#filebd').click();
+		})
+	})(jQuery);
+</script>
+</body>
+</html>

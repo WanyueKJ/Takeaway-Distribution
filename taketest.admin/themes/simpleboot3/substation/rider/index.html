@@ -1,0 +1,167 @@
+<include file="substation/public@header"/>
+
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+
+        <div class="layui-page-header">
+            <div class="layui-card">
+                <div class="layui-page-header-content">
+                    <div class="layui-card-body">
+                        <div class="layui-ui-page-header-title" >
+                            配送员列表
+                        </div>
+                    </div>
+                    <div class="layui-tab layui-tab-brief">
+                        <ul class="layui-tab-title" id="tabHeader">
+                            <li class="layui-this"><a href="{:url('rider/index')}">列表</a></li>
+                            <li><a href="{:url('rider/add')}">{:lang('ADD')}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-page-content">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <form class="layui-form" method="get" action="{:url('rider/index')}">
+                        <div class="layui-form-item layuiadmin-card-text" style="margin-bottom: 0;">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">审核状态</label>
+                                <div class="layui-input-inline">
+                                    <select class="layui-input" name="isban">
+                                        <option value="">全部</option>
+                                        <volist name="status" id="v">
+                                            <option value="{$key}" <if condition="input('request.isban') neq '' && input('request.isban') eq $key">selected</if>>{$v}</option>
+                                        </volist>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">申请时间</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input js-bootstrap-date" name="start_time"
+                                           value="{:input('request.start_time')}"
+                                           autocomplete="off" placeholder="开始日期">
+                                </div>
+                                <div class="layui-form-mid">-</div>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input js-bootstrap-date" name="end_time"
+                                           value="{:input('request.end_time')}"
+                                           autocomplete="off" placeholder="结束日期">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">用户ID</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" name="uid" value="{:input('request.uid')}" placeholder="请输入用户ID">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">关键字</label>
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" name="keyword" value="{:input('request.keyword')}" placeholder="请输入关键字">
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input type="submit" class="layui-btn btn-primary" value="搜索" />
+                                    <a class="layui-btn layui-btn-danger btn-danger" href="{:url('rider/index')}">清空</a>
+                                </div>
+                            </div>
+                            <br>
+                            用户数：{$nums}  (根据条件统计)
+                            <br>
+                            <br>
+                          
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-page-content">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <table class="layui-table" lay-even lay-size="lg">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>类型</th>
+                            <th>用户名</th>
+                            <th>昵称</th>
+                            <th>头像</th>
+                            <th>手机</th>
+                            <th>余额</th>
+                            <th>累计收益</th>
+                            <th>注册时间</th>
+                            <th>{:lang('STATUS')}</th>
+                            <th>{:lang('ACTIONS')}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <foreach name="list" item="vo">
+                            <tr>
+                                <td>{$vo.id}</td>
+                                <td>{$vo['type_txt']}</td>
+                                <td>{$vo['user_login']?$vo['user_login']:($vo['mobile']?$vo['mobile']:lang('THIRD_PARTY_USER'))}
+                                </td>
+                                <td>{$vo['user_nickname'] ? $vo['user_nickname'] : '暂无'}</td>
+                                <td><img src="{$vo['avatar']}"/></td>
+                                <td>{$vo.mobile}</td>
+                                <td>{$vo.balance}</td>
+                                <td>{$vo.balancetotal}</td>
+                                <td>{:date('Y-m-d H:i:s',$vo['create_time'])}</td>
+                                <td>
+                                    <switch name="vo.user_status">
+                                        <case value="0">
+                                            <span class="layui-badge-dot layui-bg-abnormal" style="margin-right: 6px;"></span>{$vo['status_txt']}
+                                        </case>
+                                        <case value="1">
+                                            <span class="layui-badge-dot layui-bg-function" style="margin-right: 6px;"></span>{$vo['status_txt']}
+                                        </case>
+
+                                        <case value="2">
+                                            <span class="layui-badge-dot layui-bg-red" style="margin-right: 6px;"></span>{$vo['status_txt']}
+                                        </case>
+                                    </switch>
+                                </td>
+                                <td>
+                                    <if condition="$vo['user_status'] eq 1">
+                                        <a class="layui-bo layui-bo-small layui-btn-warm js-ajax-dialog-btn" href="{:url('rider/setstatus',array('id'=>$vo['id'],'status'=>0))}" data-msg="确定要禁用么？">禁用</a>
+                                    </if>
+
+                                    <if condition="$vo['user_status'] eq 0 ">
+                                        <a class="layui-bo layui-bo-small layui-bo-succes js-ajax-dialog-btn" href="{:url('rider/setstatus',array('id'=>$vo['id'],'status'=>1))}" data-msg="确定要启用么？">启用</a>
+                                    </if>
+
+                                    <if condition="$vo['user_status'] eq 2">
+                                        <a class="layui-bo layui-bo-small layui-btn-warm js-ajax-dialog-btn" href="{:url('rider/setstatus',array('id'=>$vo['id'],'status'=>0))}" data-msg="确定要拒绝申请么？">拒绝</a>
+                                        <a class="layui-bo layui-bo-small layui-bo-succes js-ajax-dialog-btn" href="{:url('rider/setstatus',array('id'=>$vo['id'],'status'=>1))}" data-msg="确定要同意申请么？">通过</a>
+                                    </if>
+
+
+                                    <a class="layui-bo layui-bo-small layui-btn-warm " href="javascript:;" >全职</a>
+                    
+
+
+                                    <a class="layui-bo layui-bo-small layui-bo-checked" href="{:url('rider/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+                                    <a class="layui-bo layui-bo-small layui-bo-close js-ajax-delete" href="{:url('rider/del',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+                                </td>
+                            </tr>
+                        </foreach>
+                        </tbody>
+                    </table>
+                    <div class="pagination">{$page}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<include file="substation/public@script"/>
+</body>
+</html>

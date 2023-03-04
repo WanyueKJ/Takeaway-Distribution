@@ -1,0 +1,44 @@
+parameters:
+    level: 6
+
+    phpVersion: 80000
+
+    paths:
+        - src
+        - tests
+        - config
+        - dev
+        - split-repository
+
+    excludePaths:
+        - */vendor/*
+        - src/Components
+        - src/Config/DotEnv/EntryParser.php
+        - src/Config/DotEnv/Parser.php
+
+    bootstrapFiles:
+        - vendor/autoload.php
+        - split-repository/vendor/autoload.php
+
+    treatPhpDocTypesAsCertain: false
+    checkGenericClassInNonGenericObjectType: false
+    checkMissingIterableValueType: false
+    reportUnmatchedIgnoredErrors: false
+
+    ignoreErrors:
+        - '#is never read, only written#'
+        - '#expects class-string<\S+>, string given#'
+        - '#Unable to resolve the template type T in call to method#'
+        - '#Access to an undefined property Imi\\Util\\LazyArrayObject::\$[^.]+.#'
+        - '#Access to an undefined property Imi\\Util\\ArrayData::\$[^.]+.#'
+        - '#Unsafe usage of new static\(\).+#'
+        - '#Argument of an invalid type Imi\\Util\\ArrayData supplied for foreach, only iterables are supported.#'
+        - '#Argument of an invalid type ArrayAccess supplied for foreach, only iterables are supported.#'
+        - '#PHPDoc tag @throws with type \S+ is not subtype of Throwable#'
+        - '#Imi\\Swoole\\Util\\Coroutine#'
+        - '#Imi\\Swoole\\Process\\Process#'
+        - '#IMI_PATH#'
+        -
+            message: '#Method \S+ has no return typehint specified.#'
+            paths:
+                - tests/unit/**Test.php

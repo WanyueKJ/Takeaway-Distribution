@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a0431fc0-13b4-4bac-be95-7fead80aa4e3" name="变更" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/topthink/think-installer" />
+      <path value="$PROJECT_DIR$/vendor/ezyang/htmlpurifier" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-image" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/bindings" />
+      <path value="$PROJECT_DIR$/vendor/phpmailer/phpmailer" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/cache" />
+      <path value="$PROJECT_DIR$/vendor/mindplay/annotations" />
+      <path value="$PROJECT_DIR$/vendor/thinkcmf/cmf-api" />
+      <path value="$PROJECT_DIR$/vendor/thinkcmf/cmf" />
+      <path value="$PROJECT_DIR$/vendor/thinkcmf/cmf-extend" />
+      <path value="$PROJECT_DIR$/vendor/thinkcmf/cmf-app" />
+      <path value="$PROJECT_DIR$/vendor/composer" />
+      <path value="$PROJECT_DIR$/vendor/thinkphp/lang" />
+      <path value="$PROJECT_DIR$/vendor/phpqrcode/tools" />
+      <path value="$PROJECT_DIR$/vendor/electrolinux/phpquery" />
+      <path value="$PROJECT_DIR$/vendor/thinkphp/library" />
+      <path value="$PROJECT_DIR$/vendor/thinkphp/tpl" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-helper" />
+      <path value="$PROJECT_DIR$/vendor/topthink/think-captcha" />
+    </include_path>
+  </component>
+  <component name="ProjectId" id="2GyodsuWk7X0hAutiWI0LkIFHtY" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.mappings": "true",
+    "WebServerToolWindowPanel.toolwindow.highlight.symlinks": "true",
+    "WebServerToolWindowPanel.toolwindow.show.date": "false",
+    "WebServerToolWindowPanel.toolwindow.show.permissions": "false",
+    "WebServerToolWindowPanel.toolwindow.show.size": "false",
+    "last_opened_file_path": "D:/www/taketest.sdwanyue.com/sql",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\www\taketest.sdwanyue.com\sql" />
+      <recent name="D:\www\taketest.sdwanyue.com\swoole\service" />
+      <recent name="D:\www\taketest.sdwanyue.com\app" />
+      <recent name="D:\www\taketest.sdwanyue.com\phalapi\src\merchant\Api" />
+      <recent name="D:\www\taketest.sdwanyue.com\phalapi\src\rider\Api" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\www\taketest.sdwanyue.com\phalapi\src\app\service" />
+      <recent name="D:\www\taketest.sdwanyue.com\phalapi\src\app\service\base" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="默认任务">
+      <changelist id="a0431fc0-13b4-4bac-be95-7fead80aa4e3" name="变更" comment="" />
+      <created>1667370274582</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1667370274582</updated>
+      <workItem from="1667370275784" duration="1277000" />
+      <workItem from="1667436309223" duration="2160000" />
+      <workItem from="1667444789325" duration="4156000" />
+      <workItem from="1667458408346" duration="4277000" />
+      <workItem from="1667522961356" duration="2055000" />
+      <workItem from="1667541874668" duration="945000" />
+      <workItem from="1667547297579" duration="55000" />
+      <workItem from="1667547718048" duration="5435000" />
+      <workItem from="1667608719806" duration="9098000" />
+      <workItem from="1667628409410" duration="12394000" />
+      <workItem from="1667782084571" duration="24558000" />
+      <workItem from="1667868654940" duration="25304000" />
+      <workItem from="1667954552091" duration="26166000" />
+      <workItem from="1668474054009" duration="16592000" />
+      <workItem from="1668559516257" duration="16789000" />
+      <workItem from="1668645806177" duration="882000" />
+      <workItem from="1668646775307" duration="12226000" />
+      <workItem from="1668671335148" duration="110000" />
+      <workItem from="1668672795554" duration="702000" />
+      <workItem from="1668674298588" duration="156000" />
+      <workItem from="1668733547886" duration="917000" />
+      <workItem from="1668739062295" duration="648000" />
+      <workItem from="1668739720501" duration="18000" />
+      <workItem from="1668754978060" duration="4105000" />
+      <workItem from="1668762647549" duration="4328000" />
+      <workItem from="1668767480027" duration="267000" />
+      <workItem from="1668767780891" duration="25000" />
+      <workItem from="1668818660647" duration="1744000" />
+      <workItem from="1668823541500" duration="7933000" />
+      <workItem from="1669002015967" duration="16000" />
+      <workItem from="1669013522151" duration="3498000" />
+      <workItem from="1669020754387" duration="3816000" />
+      <workItem from="1669078848755" duration="557000" />
+      <workItem from="1669079495299" duration="7494000" />
+      <workItem from="1669095821200" duration="126000" />
+      <workItem from="1669098384394" duration="1229000" />
+      <workItem from="1669099694397" duration="285000" />
+      <workItem from="1669100935702" duration="6688000" />
+      <workItem from="1669164061390" duration="25343000" />
+      <workItem from="1669253688243" duration="41885000" />
+      <workItem from="1669423812369" duration="24882000" />
+      <workItem from="1669596436719" duration="19118000" />
+      <workItem from="1669683095807" duration="22391000" />
+      <workItem from="1669769330768" duration="5590000" />
+      <workItem from="1669788246373" duration="3734000" />
+      <workItem from="1669860611560" duration="4814000" />
+      <workItem from="1669879560000" duration="2435000" />
+      <workItem from="1669884011729" duration="97000" />
+      <workItem from="1669885004565" duration="4466000" />
+      <workItem from="1669942028346" duration="9516000" />
+      <workItem from="1669960988439" duration="22412000" />
+      <workItem from="1670202352023" duration="3676000" />
+      <workItem from="1670206660121" duration="18609000" />
+      <workItem from="1670286840744" duration="6492000" />
+      <workItem from="1670305458210" duration="836000" />
+      <workItem from="1670306552793" duration="1009000" />
+      <workItem from="1670307724231" duration="20000" />
+      <workItem from="1670308126864" duration="395000" />
+      <workItem from="1670376910710" duration="4086000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/phalapi/src/app/Api/Serve.php</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/phalapi/src/app/Domain/Pay.php</url>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

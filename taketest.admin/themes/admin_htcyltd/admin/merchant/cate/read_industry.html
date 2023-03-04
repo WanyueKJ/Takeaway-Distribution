@@ -1,0 +1,129 @@
+<include file="public@header" />
+<style>
+    html {background-color: #ffffff;}
+    #container {width:100%; height: 300px; }
+</style>
+
+</head>
+<body>
+<div class="layui-fluid">
+    <form method="post" class="layui-form js-ajax-form" style="margin-top:20px ;" action="{:url('merchant.cate/saveIndustry')}">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>法人姓名</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" name="person_name" required value="{$industry.name ?? ''}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>身份证号</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" name="id_card" required value="{$industry.id_card ?? ''}">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>身份证照片(正面)</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="id_card_image_0" id="id_card_image_0" value="{$industry.id_card_image.0 ?? ''}">
+                        <a href="javascript:uploadOneImage('图片上传','#id_card_image_0');">
+                            <if condition="$industry.id_card_image.0 ?? ''">
+                                <img src="{$industry.id_card_image.0}" id="id_card_image_0-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                                <else/>
+                                <img src="__TMPL__/public/assets/images/default-thumbnail.png" id="id_card_image_0-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                            </if>
+                        </a>
+                        <div class="layui-col-md12" style="margin-top: 10px">
+                            <input type="button" class="layui-btn layui-btn-sm layui-btn-normal"
+                                   onclick="$('#id_card_image_0-preview').attr('src','__TMPL__/public/assets/images/default-thumbnail.png');$('#id_card_image_0').val('');return false;"
+                                   value="取消图片">
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>身份证照片(反面)</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="id_card_image_1" id="id_card_image_1" value="{$industry.id_card_image.1 ?? ''}">
+                        <a href="javascript:uploadOneImage('图片上传','#id_card_image_1');">
+                            <if condition="$industry.id_card_image.1 ?? ''">
+                                <img src="{$industry.id_card_image.1}" id="id_card_image_1-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                                <else/>
+                                <img src="__TMPL__/public/assets/images/default-thumbnail.png" id="id_card_image_1-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                            </if>
+                        </a>
+                        <div class="layui-col-md12" style="margin-top: 10px">
+                            <input type="button" class="layui-btn layui-btn-sm layui-btn-normal"
+                                   onclick="$('#id_card_image_1-preview').attr('src','__TMPL__/public/assets/images/default-thumbnail.png');$('#id_card_image_1').val('');return false;"
+                                   value="取消图片">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>工商注册号</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" name="registr_id" required value="{$industry.registr_id  ?? ''}">
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>营业执照(正面)</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="business_image_0" id="business_image_0" value="{$industry.business_image.0 ?? ''}">
+                        <a href="javascript:uploadOneImage('图片上传','#business_image_0');">
+                            <if condition="$industry.business_image.0 ?? ''">
+                                <img src="{$industry.business_image.0}" id="business_image_0-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                                <else/>
+                                <img src="__TMPL__/public/assets/images/default-thumbnail.png" id="business_image_0-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                            </if>
+                        </a>
+                        <div class="layui-col-md12" style="margin-top: 10px">
+                            <input type="button" class="layui-btn layui-btn-sm layui-btn-normal"
+                                   onclick="$('#business_image_0-preview').attr('src','__TMPL__/public/assets/images/default-thumbnail.png');$('#business_image_0').val('');return false;"
+                                   value="取消图片">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>许可证编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" class="layui-input" name="license_number" value="{$industry.license_number ?? ''}" required>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><span class="form-required">*</span>许可证照</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="license_image_0" id="license_image_0" value="{$industry.license_image.0 ?? ''}">
+                        <a href="javascript:uploadOneImage('图片上传','#license_image_0');">
+                            <if condition="$industry.license_image.0 ?? ''">
+                                <img src="{$industry.license_image.0}" id="license_image_0-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                                <else/>
+                                <img src="__TMPL__/public/assets/images/default-thumbnail.png" id="license_image_0-preview" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                            </if>
+                        </a>
+                        <div class="layui-col-md12" style="margin-top: 10px">
+                            <input type="button" class="layui-btn layui-btn-sm layui-btn-normal"
+                                   onclick="$('#license_image_0-preview').attr('src','__TMPL__/public/assets/images/default-thumbnail.png');$('#license_image_0').val('');return false;"
+                                   value="取消图片">
+                        </div>
+                    </div>
+                </div>
+
+                <input type="hidden" name="id" value="{$industry.store_id ?? 0}">
+
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <button type="submit" class="layui-btn js-ajax-submit">{:lang('EDIT')}</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="public@script"/>
+</body>
+</html>

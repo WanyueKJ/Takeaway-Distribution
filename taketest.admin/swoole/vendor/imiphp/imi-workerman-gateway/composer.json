@@ -1,0 +1,38 @@
+{
+    "name": "imiphp/imi-workerman-gateway",
+    "type": "library",
+    "license": "MulanPSL-1.0",
+    "description": "imi workerman gateway component",
+    "require": {
+        "workerman/gateway-worker": "^3.0",
+        "yurunsoft/workerman-gateway-sdk": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": ">=8",
+        "wrench/wrench": "~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Imi\\WorkermanGateway\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Imi\\WorkermanGateway\\Test\\": "tests/unit/",
+            "Imi\\WorkermanGateway\\Dev\\": "dev/"
+        },
+        "files": [
+            "../../../vendor/autoload.php",
+            "../../../dev/try-include-swoole.php",
+            "../workerman/vendor/autoload.php"
+        ]
+    },
+    "scripts": {
+        "pre-install-cmd": "Imi\\WorkermanGateway\\Dev\\Dev::preUpdate",
+        "pre-update-cmd": "Imi\\WorkermanGateway\\Dev\\Dev::preUpdate",
+        "post-install-cmd": "Imi\\WorkermanGateway\\Dev\\Dev::postUpdate",
+        "post-update-cmd": "Imi\\WorkermanGateway\\Dev\\Dev::postUpdate"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

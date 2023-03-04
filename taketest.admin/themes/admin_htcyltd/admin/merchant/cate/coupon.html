@@ -1,0 +1,218 @@
+<include file="public@header"/>
+<style>
+  .table img {
+    width: 50px;
+  }
+
+  .layui-tab.back {
+    margin-bottom: 10px;
+  }
+
+  .back a {
+    color: #969696;
+  }
+
+  .cinfo {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+  }
+
+  .cinfo_l {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+    width: 200px;
+    height: 130px;
+  }
+
+  .cinfo_l img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .cinfo_r {
+    flex: 1;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+
+  }
+
+  .cinfo_name {
+    flex: 1;
+    color: #323232;
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 600;
+  }
+
+  .detail td{
+    border-width: 0;
+  }
+
+  .trade_item_list{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .trade_item_list .trade_item{
+    flex: 1;
+  }
+  .trade_item_v{
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .js_tips{
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="layui-fluid">
+  <div class="layui-row">
+
+    <div class="layui-page-content">
+      <div class="layui-card">
+        <div class="layui-card-body">
+          <div class="layui-tab layui-tab-brief back">
+            <if condition="$data.o_top_type_id == 1">
+              <a href="{:url('merchant.cate/index')}">返回</a>
+              <elseif condition="$data.o_top_type_id == 3">
+                <a href="{:url('merchant.serve/index')}">返回</a>
+                <elseif condition="$data.o_top_type_id == 4">
+                  <a href="{:url('merchant.look_shop/index')}">返回</a>
+                  <elseif condition="in_array($data.o_top_type_id,[5,6,7,8])">
+                    <a href="{:url('merchant.supermarket/index')}">返回</a>
+                    <else/>
+            </if>
+          </div>
+          <div class="cinfo">
+            <div class="cinfo_l">
+              <img src="{$data['thumb']}">
+            </div>
+            <div class="cinfo_r">
+              <div class="cinfo_name">{$data['name']}</div>
+              <div class="cinfo_btn">
+                <a class="layui-btn layui-btn-sm"  href="javascript:admin.openIframeLayer('{:url('merchant.cate/ReadIndustry',array('id'=>$data['id']))}','资质',{area:['60%', '600px'],end:function(){}})">资质</a>
+              </div>
+            </div>
+
+            <table class="layui-table table-hover table-bordered table-list detail" lay-even="" lay-size="lg">
+              <tbody>
+              <tr style="border-width: 0;">
+   
+                <td>
+                  <span style="font-weight: 600;">类型:</span>
+                  {$data['store_type']['name'] ?? '--'}
+                </td>
+                <td>
+                  <span style="font-weight: 600;">总评:</span>
+                  {$data['remark'] ?? '--'}
+                </td>
+              </tr>
+              <tr>
+      
+                <td>
+                  <span style="font-weight: 600;">口味|包装|配送满意度:</span>
+                  {$taste_star}|{$packaging_star}|{$distribution_star}
+                </td>
+                <td>
+                  <span style="font-weight: 600;">营业时间:</span>
+                  {$businessHours}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <span style="font-weight: 600;">地址:</span>
+                  {$data['address']}
+                </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="layui-page-content">
+
+      <div class="layui-card">
+        <div class="layui-tab layui-tab-brief">
+          <ul class="layui-tab-title">
+            <li><a href="{:url("merchant.cate/read",["type"=>"now",'id'=>$data['id']])}">当前订单</a></li>
+            <li><a href="{:url("merchant.cate/read",["type"=>"before",'id'=>$data['id']])}">过往订单</a></li>
+            <li><a href='{:url("merchant.cate/evaluateIndex",['id'=>$data['id']])}'>评价列表</a></li>
+            <li><a href='{:url("merchant.cate/product",['id'=>$data['id']])}'>商品列表</a></li>
+         
+            <li><a href='{:url("merchant.cate/storeType",['id'=>$data['id']])}'>店铺分类</a></li>
+          </ul>
+        </div>
+
+        <div class="layui-card">
+        </div>
+      </div>
+
+      <div class="layui-card-body">
+        <form method="post" class="js-ajax-form" method="post">
+          <table class="layui-table table-hover table-bordered table-list" id="menus-table" lay-even=""
+                 lay-size="lg">
+            <thead>
+            <tr>
+              <th width="80">ID</th>
+              <th>名称</th>
+              <th>发放时间</th>
+              <th>总量</th>
+              <th>剩余量</th>
+              <th align="center">{:lang('ACTIONS')}</th>
+            </tr>
+            </thead>
+            <tbody>
+            <volist name="list" id="vo">
+              <tr>
+                <td>
+                  {$vo['id']}
+                </td>
+                <td>{$vo['name']}</td>
+                <td>{$vo['addtime']}</td>
+                <td>{$vo.nums_total}</td>
+                <td>{$vo.nums}</td>
+
+                <td>
+                  <a class="layui-bo layui-bo-small layui-bo-close js-ajax-delete" href="{:url('coupon/del',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+                </td>
+              </tr>
+            </volist>
+            </tbody>
+          </table>
+          <div class="pagination">{$page}</div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</div>
+<include file="public@script"/>
+<script>
+  (function (){
+    $('.js_tips').mouseover(function (){
+      let _that=$(this);
+      let tip=_that.data('tip');
+      layer.tips(tip, _that);
+    })
+  })()
+</script>
+</body>
+</html>

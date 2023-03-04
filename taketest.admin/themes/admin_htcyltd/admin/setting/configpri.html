@@ -1,0 +1,437 @@
+<include file="public@header"/>
+<link rel="stylesheet" href="__TMPL__/public/assets/css/animation.css">
+<style>
+    .inline_input{
+        display: inline-block !important;
+        width: auto !important;
+    }
+</style>
+</head>
+<body>
+
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-page-header">
+            <div class="layui-card">
+                <div class="layui-page-header-content">
+                    <div class="layui-card-body">
+                        <div class="layui-ui-page-header-title" >
+                            {:lang('ADMIN_SETTING_SITE')}<span class="layui-badge-rim page-content">设置网站的数据参数及其它设置</span>
+                        </div>
+                    </div>
+                    <div class="layui-tab layui-tab-brief">
+                        <ul class="layui-tab-title layui-nav" id="tabHeader">
+                            <li class="layui-this layui-nav-item">基础配置</li>
+                            <li class="layui-nav-item">登录配置</li>
+                            <li class="layui-nav-item">支付配置</li>
+                            <li class="layui-nav-item">通知配置</li>
+
+                            <li class="layui-nav-item">地图配置</li>
+                            <li class="layui-nav-item">腾讯云-即时通信IM</li>
+                            <li class="layui-nav-item">店铺</li>
+                            <li class="layui-nav-item">和风天气(Web API)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-page-content">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <form class="layui-form js-ajax-form" role="form" action="{:url('admin/setting/configpripost')}" method="post" wid110>
+                        <div class="layui-tab-content" id="tabBody">
+
+                            <div class="layui-tab-item layui-show">
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">客服链接</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[service_url]" value="{$config['service_url'] ?? ''}">
+                                        注册链接：http://www.53kf.com/reg/index?yx_from=244621&cps_id6d=10424864
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="1">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item">
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">验证码开关</label>
+                                    <div class="layui-input-block">
+                                        <select class="layui-input" name="options[sendcode_switch]">
+                                            <option value="0">关闭</option>
+                                            <option value="1" <eq name="config['sendcode_switch']" value="1">selected</eq>>开启</option>
+                                        </select>
+                                        关闭后不再发送真实验证码，采用默认验证码123456
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">腾讯云-API密钥-SecretId</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[tx_api_secretid]" value="{$config['tx_api_secretid'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">腾讯云-API密钥-SecretKey</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[tx_api_secretkey]" value="{$config['tx_api_secretkey'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">腾讯云-短信应用SDKAppid</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[tx_sms_sdkappid]" value="{$config['tx_sms_sdkappid'] ?? ''}"> 腾讯云短信APPID
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">腾讯云-短信签名</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[tx_sms_sign]" value="{$config['tx_sms_sign'] ?? ''}"> 腾讯云短信签名
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">腾讯云-短信模板ID</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[tx_sms_tempid]" value="{$config['tx_sms_tempid'] ?? ''}"> 腾讯云短信模板ID
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item">
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">APP-支付宝开关</label>
+                                    <div class="layui-input-block">
+                                        <select class="layui-input" name="options[aliapp_switch]">
+                                            <option value="0">关闭</option>
+                                            <option value="1" <eq name="config['aliapp_switch']" value="1">selected</eq>>开启</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">支付宝开放平台移动应用APPID</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[aliapp_appid]" value="{$config['aliapp_appid'] ?? ''}">
+                                    </div>
+                                </div>
+
+
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">支付宝开放平台移动应用对应的应用密钥</label>
+                                    <div class="layui-input-block">
+                                        <textarea class="layui-textarea" name="options[aliapp_key]" >{$config.aliapp_key ?? ''}</textarea> RSA2-PKCS8
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item layui-form-text">
+                                    <label class="layui-form-label">支付宝开放平台移动应用对应的支付宝公钥</label>
+                                    <div class="layui-input-block">
+                                        <textarea class="layui-textarea" name="options[aliapp_publickey]" >{$config.aliapp_publickey ?? ''}</textarea>
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">APP-微信开关</label>
+                                    <div class="layui-input-block">
+                                        <select class="layui-input" name="options[wxapp_switch]">
+                                            <option value="0">关闭</option>
+                                            <option value="1" <eq name="config['wxapp_switch']" value="1">selected</eq> >开启</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">微信开放平台移动应用AppID(用户端)</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[wx_appid]" value="{$config['wx_appid'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">微信开放平台移动应用appsecret(用户端)</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[wx_appsecret]" value="{$config['wx_appsecret'] ?? ''}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">微信开放平台移动应用AppID(商家端)</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[mer_wx_appid]" value="{$config['mer_wx_appid'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">微信开放平台移动应用appsecret(商家端)</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[mer_wx_appsecret]" value="{$config['mer_wx_appsecret'] ?? ''}">
+                                    </div>
+                                </div>
+
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">微信商户号mchid</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[wx_mchid]" value="{$config['wx_mchid'] ?? ''}"> 微信应用对应的微信商户 商户号mchid
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">微信密钥key</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[wx_key]" value="{$config['wx_key'] ?? ''}"> 微信应用对应的微信商户 密钥key
+                                    </div>
+                                </div>
+
+<!--                                <div class="layui-form-item">-->
+<!--                                    <label class="layui-form-label" for="js-wx_key_file-input">-->
+<!--                                        微信商户证书key-->
+<!--                                    </label>-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <div>-->
+<!--                                            <input readonly class="layui-input" id="js-wx_key_file-input" type="text" name="options[wx_key_file]" value="{$config['wx_key_file'] ?? ''}" style="width: 300px;display: inline-block;" title="文件名称">-->
+<!--                                            <a href="javascript:uploadOne('文件上传','#js-wx_key_file-input','file');">上传文件</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="layui-form-item">-->
+<!--                                    <label class="layui-form-label" for="js-wx_cert_file-input">-->
+<!--                                        微信商户证书cert-->
+<!--                                    </label>-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <div>-->
+<!--                                            <input readonly class="layui-input" id="js-wx_cert_file-input" type="text" name="options[wx_cert_file]" value="{$config['wx_cert_file'] ?? ''}" style="width: 300px;display: inline-block;" title="文件名称">-->
+<!--                                            <a href="javascript:uploadOne('文件上传','#js-wx_cert_file-input','file');">上传文件</a>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">Weksocket地址</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[chatserver]" value="{$config['chatserver'] ?? ''}">
+                                        格式：ws(s)://域名(:端口)/ws 或者 ws(s)://IP(:端口)/ws
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+<!--                            <div class="layui-tab-item">-->
+<!--                                <div class="layui-form-item">-->
+<!--                                    <label class="layui-form-label">邀请分成比例（%）</label>-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <input type="text" class="layui-input" name="options[agent_one]" value="{$config['agent_one'] ?? ''}">-->
+<!--                                        邀请奖励只从基础配送费中获得-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="layui-form-item">-->
+<!--                                    <label class="layui-form-label">邀请优惠券中奖率（%）</label>-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <input type="text" class="layui-input" name="options[agent_win_rate]" value="{$config['agent_win_rate'] ?? ''}">-->
+<!--                                        当有新用户绑定成功时，邀请人有多少几率获取优惠券  支持：0.01-->
+<!--                                    </div>-->
+<!--                                </div>-->
+
+<!--                                <div class="layui-form-item">-->
+<!--                                    <div class="layui-input-block">-->
+<!--                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">-->
+<!--                                            {:lang('SAVE')}-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+                            <div class="layui-tab-item">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">高德地图-WEB应用-Key</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[gaode_key]" value="{$config['gaode_key'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">高德地图-WEB应用-安全密钥</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[gaode_secret]" value="{$config['gaode_secret'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">SDKAppID</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[im_sdk_app_id]" value="{$config['im_sdk_app_id'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">秘钥</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[im_key]" value="{$config['im_key'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-tab-item">
+
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">店铺配送距离(km)</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[noriko_sakai]" value="{$config['noriko_sakai'] ?? ''}">
+                                    </div>
+                                </div>
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="layui-tab-item">
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">Public Id</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[weather][public_id]" value="{$config['weather']['public_id'] ?? ''}">
+                                    </div>
+                                </div>
+                                <div class="layui-form-item">
+                                    <label class="layui-form-label">Key</label>
+                                    <div class="layui-input-block">
+                                        <input type="text" class="layui-input" name="options[weather][key]" value="{$config['weather']['key'] ?? ''}">
+                                    </div>
+                                </div>
+
+
+                                <div class="layui-form-item">
+                                    <div class="layui-input-block">
+                                        <button type="submit" class="layui-btn js-ajax-submit" data-refresh="0">
+                                            {:lang('SAVE')}
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(function () {
+        layui.use(['laydate','layer', 'jquery', 'form'], function () {
+            var  form=layui.form,
+                laydate = layui.laydate;
+
+            $('.welcome').delegate('.addTime','click',function(){
+                var id = $("div.welcome_time_count").length
+                ++id;
+
+                $('.addTimeSave').before('<div class="layui-form-item welcome_time_count">\n' +
+                    '                                    <label class="layui-form-label"><span class="form-required"></span>时间段</label>\n' +
+                    '                                    <div class="layui-input-block">\n' +
+                    '                                        <input type="text" class="layui-input inline_input js-bootstrap-time" name="options[welcome_time]['+id+'][star]" value="">\n' +
+                    '                                        <span>-</span>\n' +
+                    '                                        <input type="text" class="layui-input inline_input js-bootstrap-time" name="options[welcome_time]['+id+'][end]" value="">\n' +
+                    '                                        <span>:</span>\n' +
+                    '                                        <input type="text" class="layui-input inline_input" name="options[welcome_time]['+id+'][text]" value="">\n' +
+                    '                                        <a class="layui-bo layui-bo-small layui-bo-checked delTime">删除</a>\n' +
+                    '                                    </div>\n' +
+                    '                                </div>');
+                //执行一个laydate实例
+                var bootstrapDateTimeInput = $("input.js-bootstrap-time");
+                if (bootstrapDateTimeInput.length) {
+                    lay('input.js-bootstrap-time').each(function() {
+                        laydate.render({
+                            elem: this,
+                            type: 'time',
+                            format: 'HH:mm:ss',
+                            trigger:'click'
+                        });
+                    });
+                }
+
+            });
+            $('.welcome').delegate('.delTime','click',function (){
+                var count  = $("input.js-bootstrap-time");
+
+                if(count.length <= 2){
+                    return false;
+                }
+                $(this).parent().parent().remove();
+
+            });
+
+            //执行一个laydate实例
+            var bootstrapDateTimeInput = $("input.js-bootstrap-time");
+            if (bootstrapDateTimeInput.length) {
+                lay('input.js-bootstrap-time').each(function() {
+                    laydate.render({
+                        elem: this,
+                        type: 'time',
+                        format: 'HH:mm:ss',
+                        trigger:'click'
+                    });
+                });
+            }
+        });
+
+
+    });
+</script>
+<include file="public@script"/>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{
+    "name": "imiphp/project-websocket",
+    "type": "project",
+    "description": "imi 框架的 WebSocket Server 项目。https://imiphp.com",
+    "require": {
+        "php": ">=7.4",
+        "imiphp/imi": " ~2.1.x-dev",
+        "imiphp/imi-swoole": "~2.1.x-dev",
+        "imiphp/imi-workerman": " ~2.1.x-dev",
+        "imiphp/imi-workerman-gateway": " ~2.1.x-dev"
+    },
+    "require-dev": {
+        "swoole/ide-helper": "^4.7"
+    },
+    "autoload": {
+        "psr-4" : {
+			"ImiApp\\" : "./"
+        },
+        "files": [
+            "init.php"
+        ]
+	},
+    "config": {
+        "sort-packages": true
+    }
+}

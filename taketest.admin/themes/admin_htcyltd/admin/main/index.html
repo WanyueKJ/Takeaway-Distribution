@@ -1,0 +1,504 @@
+<include file="public@header"/>
+<link rel="stylesheet" href="__STATIC__/css/iconfont.css">
+<link rel="stylesheet" href="__TMPL__/public/assets/css/animation.css">
+<link rel="stylesheet" href="__STATIC__/css/main.css">
+<style>
+    body .layui-row{
+        margin-bottom: 20px;
+    }
+    .trade_item_list{
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        height: 200px;
+    }
+    .trade_item_list .trade_item{
+        margin: 0 1% 1% 0;
+        padding: 10px;
+        width: 32%;
+        background: #f2f5fa;
+        -moz-box-sizing: border-box;  /*Firefox3.5+*/
+        -webkit-box-sizing: border-box; /*Safari3.2+*/
+        -o-box-sizing: border-box; /*Opera9.6*/
+        -ms-box-sizing: border-box; /*IE8*/
+        box-sizing: border-box;
+    }
+    .trade_item_v{
+        font-size: 16px;
+        font-weight: bold;
+    }
+    .trade_item_tip{
+        height: 20px;
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .rider_list{
+        height: 200px;
+    }
+    .rider_item{
+
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        height: 47px;
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .rider_num{
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .rider_tip{}
+    .c1{
+        color: #fe5722;
+    }
+
+    .c2{
+        color: #1bbc9d;
+    }
+
+    .c3{
+        color: #999999;
+    }
+
+    .incomelist{
+        height: 200px;
+    }
+    .incomebd{}
+    .income_item{
+
+        border-bottom: 1px solid #f2f2f2;
+    }
+    .income_t{
+        height: 30px;
+        line-height: 30px;
+    }
+    .income_n{
+        height: 38px;
+        line-height: 38px;
+        font-size: 20px;
+        font-weight:bold;
+    }
+    .income_b{
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 30px;
+    }
+    body .flex_space{
+        display: -webkit-flex; /* Safari */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .right_btn{}
+    .right_btn span{
+        color: #999999;
+        cursor: pointer;
+    }
+    .right_btn span.on{
+        color: #1bbc9d;
+    }
+
+</style>
+
+</head>
+
+<body>
+    <div class="wrap layui-fluid">
+        <div class="layui-row">
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-card-header">订单监控</div>
+                    <div class="layui-card-body">
+                        <div class="trade_item_list">
+                            <div class="trade_item">
+                                <div class="trade_item_t">
+                                    待接单
+                                </div>
+                                <div class="trade_item_v">
+                                    {$status_2}
+                                </div>
+                                <div class="trade_item_tip">
+
+                                </div>
+                            </div>
+
+                            <div class="trade_item">
+                                <div class="trade_item_t">
+                                    服务中
+                                </div>
+                                <div class="trade_item_v">
+                                    {$status_4}
+                                </div>
+                                <div class="trade_item_tip">
+
+                                </div>
+                            </div>
+
+  
+
+                            <div class="trade_item">
+                                <div class="trade_item_t">
+                                    退款申请
+                                </div>
+                                <div class="trade_item_v">
+                                    {$status_5}
+                                </div>
+                                <div class="trade_item_tip">
+
+                                </div>
+                            </div>
+                            <div class="trade_item">
+                                <div class="trade_item_t">
+                                    今日订单量
+                                </div>
+                                <div class="trade_item_v">
+                                    {$order_all_tod}
+                                </div>
+                                <div class="trade_item_tip">
+                                    <div>较昨日</div>
+                                    <div><i class="iconfont {$order_all_css}"></i> {$order_all_rate}%</div>
+                                </div>
+                            </div>
+                            <div class="trade_item">
+                                <div class="trade_item_t">
+                                    完成订单量
+                                </div>
+                                <div class="trade_item_v">
+                                    {$order_ok_tod}
+                                </div>
+                                <div class="trade_item_tip">
+                                    <div>昨日全天</div>
+                                    <div>{$order_ok_yes}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3" style="margin-left: 20px">
+                <div class="layui-card">
+                    <div class="layui-card-header">骑手情况</div>
+                    <div class="layui-card-body">
+                        <div class="rider_list">
+                            <div class="rider_item">
+                                <span class="rider_num">{$rider_all}</span>
+                                <span class="rider_tip">有效骑手</span>
+                            </div>
+
+                            <div class="rider_item">
+                                <span class="rider_num c2">{$rider_qz}</span>
+                                <span class="rider_tip">全职骑手</span>
+                            </div>
+
+            
+
+                            <div class="rider_item">
+                                <span class="rider_num c1">{$rider_wait}</span>
+                                <span class="rider_tip">待审核骑手</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-card-header">订单趋势</div>
+                    <div class="layui-card-body">
+                        <div id="echarts_order_hour" style="height:200px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3" style="margin-left: 20px">
+                <div class="layui-card">
+                    <div class="layui-card-header">今日收入</div>
+                    <div class="layui-card-body">
+                        <div class="incomelist">
+                            <div class="incomebd">
+                                <div class="income_item">
+                                    <div class="income_t">
+                                        分站总收入
+                                    </div>
+                                    <div class="income_n">
+                                        {$substation_income_to}
+                                    </div>
+                                    <div class="income_b">
+                                        <span>昨日全天</span>
+                                        <span>{$substation_income_yes}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="incomebd">
+                                <div class="income_item">
+                                    <div class="income_t">
+                                        骑手总收入
+                                    </div>
+                                    <div class="income_n">
+                                        {$rider_income_to}
+                                    </div>
+                                    <div class="income_b">
+                                        <span>昨日全天</span>
+                                        <span>{$rider_income_yes}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-row">
+            <div class="layui-col-md8">
+                <div class="layui-card">
+                    <div class="layui-card-header flex_space">
+                        <div>骑手订单分析</div>
+                        <div class="right_btn js_riderorder">
+                            <span data-type="1" class="on">今日</span>
+                            <span data-type="2">近7天</span>
+                            <span data-type="3">仅30天</span>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div id="echarts_rider_order" style="height:200px;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3" style="margin-left: 20px">
+                <div class="layui-card">
+                    <div class="layui-card-header flex_space">
+                        <div>服务满意度</div>
+                        <div class="right_btn js_service">
+                            <span data-type="1" class="on">今日</span>
+                            <span data-type="2">近7天</span>
+                            <span data-type="3">仅30天</span>
+                        </div>
+                    </div>
+                    <div class="layui-card-body">
+                        <div id="echarts_service" style="height:200px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<include file="public@script"/>
+<script src="__STATIC__/js/echarts/echarts.min.js"></script>
+<script type="text/javascript">
+    function setOrderHourEchat(data){
+        // 基于准备好的dom，初始化echarts实例
+        var order_hour = echarts.init(document.getElementById('echarts_order_hour'));
+        // 指定图表的配置项和数据
+        var order_hour_option = {
+            grid: {
+                left: '3%',
+                right: '3%',
+                bottom: '3%',
+                containLabel: true
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            xAxis: {
+                type: 'category',
+                data: data.x
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    type: 'line',
+                    data: data.y
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        order_hour.setOption(order_hour_option);
+    }
+    function getTodayOrderData(type='hour'){
+        $.ajax({
+            url:'{:url("main/getTodayOrderData")}',
+            type:'POST',
+            data:{type:type},
+            dataType:'json',
+            error(){
+                layer.msg('网络错误');
+            },
+            success(res){
+                if(res.code==0){
+                    layer.msg(res.msg);
+                    return !1;
+                }
+
+                if(type=='hour'){
+                    setOrderHourEchat(res.data);
+                }
+            }
+
+
+        })
+    }
+
+    function setRiderOrder(data){
+        // 基于准备好的dom，初始化echarts实例
+        var echarts_rider_order = echarts.init(document.getElementById('echarts_rider_order'));
+        // 指定图表的配置项和数据
+        var echarts_rider_order_option = {
+            grid: {
+                left: '3%',
+                right: '3%',
+                bottom: '3%',
+                top: '3%',
+                containLabel: true
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: data.y
+            },
+            series: [
+                {
+                    type: 'bar',
+                    data: data.x
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        echarts_rider_order.setOption(echarts_rider_order_option);
+    }
+
+    function getRiderOrderData(type='1'){
+        $.ajax({
+            url:'{:url("main/getRiderOrder")}',
+            type:'POST',
+            data:{type:type},
+            dataType:'json',
+            error(){
+                layer.msg('网络错误');
+            },
+            success(res){
+                if(res.code==0){
+                    layer.msg(res.msg);
+                    return !1;
+                }
+
+                if(type=='1'){
+                    setRiderOrder(res.data);
+                }
+            }
+
+
+        })
+    }
+
+    function setService(data){
+        // 基于准备好的dom，初始化echarts实例
+        var echarts_service = echarts.init(document.getElementById('echarts_service'));
+        // 指定图表的配置项和数据
+        var echarts_service_option = {
+            grid: {
+                left: '3%',
+                right: '3%',
+                bottom: '3%',
+                containLabel: true
+            },
+            legend: {
+                left: 'left'
+            },
+            tooltip: {
+                trigger: 'item'
+            },
+            series: [
+                {
+                    type: 'pie',
+                    radius: '50%',
+                    data: data
+                }
+            ]
+        };
+        // 使用刚指定的配置项和数据显示图表。
+        echarts_service.setOption(echarts_service_option);
+    }
+
+    function getServiceData(type='1'){
+        $.ajax({
+            url:'{:url("main/getService")}',
+            type:'POST',
+            data:{type:type},
+            dataType:'json',
+            error(){
+                layer.msg('网络错误');
+            },
+            success(res){
+                if(res.code==0){
+                    layer.msg(res.msg);
+                    return !1;
+                }
+
+                if(type=='1'){
+                    setService(res.data);
+                }
+            }
+
+
+        })
+    }
+
+    (function (){
+        getTodayOrderData();
+        getServiceData();
+        getRiderOrderData();
+
+        $('.js_service span').click(function (){
+            let _that=$(this);
+            if(_that.hasClass('on')){
+                return !1;
+            }
+            _that.siblings().removeClass('on');
+            _that.addClass('on');
+            let type=_that.data('type');
+            getServiceData(type);
+        })
+
+        $('.js_riderorder span').click(function (){
+            let _that=$(this);
+            if(_that.hasClass('on')){
+                return !1;
+            }
+            _that.siblings().removeClass('on');
+            _that.addClass('on');
+            let type=_that.data('type');
+            getRiderOrderData(type);
+        })
+    })()
+</script>
+
+
+</body>
+</html>
+
+
+
+
+
+

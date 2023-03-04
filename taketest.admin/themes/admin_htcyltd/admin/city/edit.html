@@ -1,0 +1,124 @@
+<include file="public@header" />
+<style>
+    .layui-form-select dl{
+        z-index: 10000;
+    }
+    .layui-btn{
+        margin-top: 0 !important;
+    }
+    body .layui-tab-content .layui-form-label{
+        width: 100px;
+    }
+
+    body .layui-tab-content .layui-input-block{
+        margin-left: 140px;
+    }
+    body .smallinput input.layui-input{
+        display: inline-block;
+        width: 60px;
+    }
+    .timeperiod .layui-form-select{
+        width: 100px;
+        display: inline-block;
+    }
+    .timeperiod .layui-input-inline{
+        margin-bottom: 10px;
+        width: 300px;
+    }
+    .timeperiod .layui-form-checkbox[lay-skin=primary]{
+        margin-top: 0;
+    }
+</style>
+</head>
+<body>
+	<div class="layui-fluid">
+		<form method="post" class="layui-form js-ajax-form" action="{:url('city/editPost')}" style="margin-top: 20px;">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-tab layui-tab-brief">
+                        <ul class="layui-tab-title">
+                            <li ><a href="{:url('city/index')}">列表</a></li>
+                            <li class="layui-this"><a >{:lang('EDIT')}</a></li>
+                        </ul>
+                    </div>
+                    <div class="layui-card-body">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="form-required">*</span>类型</label>
+                            <div class="layui-input-block">
+                                <select class="layui-input" name="pid" id="pid" lay-filter="pid">
+                                        <option value="0">章节</option>
+                                        <volist name="list" id="v">
+                                            <option value="{$v['id']}" <eq name="data['pid']" value="$v['id']">selected</eq> >{$v['name']}</option>
+                                        </volist>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="form-required">*</span>名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" name="name" required value="{$data.name}">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="form-required">*</span>地区编码</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" name="area_code" required value="{$data.area_code}" maxlength="8">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item pidbd pidbd1">
+                            <label class="layui-form-label"><span class="form-required">*</span>抽成比例</label>
+                            <div class="layui-input-block">
+                                <input type="text" class="layui-input" name="rate" required value="{$data.rate}" >% 支持：0.01
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="hidden" name="id" value="{$data.id}" />
+                                <button type="submit" class="layui-btn js-ajax-submit">{:lang('EDIT')}</button>
+                                <a class="layui-btn layui-btn-primary btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</form>
+	</div>
+    <include file="public@script"/>
+
+    <script>
+        Wind.use('layer');
+        var form;
+
+        function changePid(){
+            let pid=$('#pid').val();
+            if(pid>0){
+                pid=1;
+            }
+            $('.pidbd').hide();
+            $('.pidbd'+pid).show();
+
+        }
+
+        (function (){
+            changePid();
+
+            layui.use(['layer', 'jquery', 'form'], function () {
+                var layer = layui.layer,
+                    $ = layui.jquery;
+                form=layui.form;
+
+                form.on('select(pid)', function(data){
+                    changePid();
+                });
+
+            });
+
+        })()
+    </script>
+</body>
+</html>

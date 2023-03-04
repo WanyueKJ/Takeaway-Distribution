@@ -1,0 +1,71 @@
+/* 教师、学生、班级 选择样式 */
+.uid_list{
+    margin: 0;
+    padding: 0;
+}
+.uid_list ul{
+    margin: 0;
+    padding: 0;
+}
+.uid_list li{
+    display: inline-block;
+    float: left;
+    position: relative;
+    list-style: none;
+}
+.uid_list span{
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding: 0 18px;
+    min-width: 80px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #323232;
+    font-size: 14px;
+    background: #ffffff;
+    border: 1px solid #f0f0f0;
+    border-radius: 5px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.uid_list span.on {
+    margin: 0;
+    color: #348fed;
+    border: 1px dashed #348fed;
+    cursor: pointer;
+}
+.uid_list li i{
+    position: absolute;
+    top: 3px;
+    right: 13px;
+    width: 10px;
+    height: 10px;
+    background: url('../images/del.png') no-repeat center center;
+    background-size: 10px 10px;
+    cursor: pointer;
+}
+
+a.btn_a{
+    display: inline-block;
+    margin-left: 10px;
+    padding: 0 18px;
+    min-width: 80px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    color: #348fed;
+    font-size: 14px;
+    background: #ffffff;
+    border: 1px dashed #348fed;
+    border-radius: 5px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}

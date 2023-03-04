@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
+    <title>{$configpub['site_name']} </title>
+    <meta name="description" content="This is page-header (.page-header &gt; h1)">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- HTML5 shim for IE8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <![endif]-->
+    <link href="__STATIC__/font-awesome/css/font-awesome.min.css?page=index" rel="stylesheet" type="text/css">
+    <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" href="/themes/admin_htcyltd/public/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/themes/admin_htcyltd/public/layuiadmin/style/admin.css?t=1619081005" media="all">
+    <link rel="stylesheet" href="/themes/admin_htcyltd/public/layuiadmin/layui/css/icon.css">
+    <script>
+        //全局变量
+        var GV = {
+            HOST: "{$_SERVER['HTTP_HOST']|default=''}",
+            ROOT: "__ROOT__/",
+            WEB_ROOT: "__WEB_ROOT__/",
+            JS_ROOT: "static/js/"
+        };
+    </script>
+</head>
+<body class="layui-layout-body">
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+            <!-- 头部区域 -->
+            <ul class="layui-nav layui-layout-left">
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="__ROOT__/" target="_blank" title="网站首页">
+                        <i class="layui-icon layui-icon-website"></i>
+                    </a>
+                </li>
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+            </ul>
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+
+                <li class="layui-nav-item" lay-unselect style="margin-right:10px;">
+                    <a href="javascript:;">
+                        <cite>欢迎,{$admin['user_nickname']}</cite>
+                    </a>
+                    <dl style="min-width:auto;" class="layui-nav-child">
+                        <!--<dd><a lay-href="{:url('user/edit')}">个人信息</a></dd>-->
+                        <dd><a lay-href="{:url('setting/password')}">密码修改</a></dd>
+                        <hr>
+                        <dd style="text-align: center;"><a href="{:url('Public/logout')}">退出</a></dd>
+                    </dl>
+                </li>
+
+            </ul>
+        </div>
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <div class="layui-logo" lay-href="{:url('Main/index')}">
+                    <a href="{:url('index/index')}"><span>{$configpub['site_name']}</span></a>
+                </div>
+                <ul style="position: relative;" class="layui-nav layui-nav-tree arrow3" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+                    <li data-name="layui-icon-dollar" class="layui-nav-item">
+                        <a lay-href="{:url('city/index')}" lay-tips="城市管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-website"></i>
+                            <cite>城市管理</cite>
+                        </a>
+                    </li>
+
+                    <li data-name="layui-icon-link" class="layui-nav-item" style="display: none;">
+                        <a href="javascript:;" lay-tips="城市管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-website"></i>
+                            <cite>城市管理</cite>
+                            <span class="layui-nav-more"></span></a>
+
+                        <dl class="layui-nav-child">
+                            <dd data-name="业务设置">
+                                <a lay-href="{:url('city/edit')}" title="业务设置">业务设置</a>
+                            </dd>
+                        </dl>
+                    </li>
+
+                    <li data-name="layui-icon-link" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="骑手管理" lay-direction="2">
+                            <i class="layui-icon layui-icon-user"></i>
+                            <cite>骑手管理</cite>
+                            <span class="layui-nav-more"></span></a>
+
+                        <dl class="layui-nav-child">
+                            <dd data-name="配送员列表">
+                                <a lay-href="{:url('rider/index')}" title="配送员列表">配送员列表</a>
+                            </dd>
+                            <dd data-name="配送员等级">
+                                <a lay-href="{:url('riderlevel/index')}" title="配送员等级">配送员等级</a>
+                            </dd>
+                        </dl>
+
+                    </li>
+
+                    <li data-name="layui-icon-link" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="财务统计" lay-direction="2">
+                            <i class="layui-icon layui-icon-user"></i>
+                            <cite>财务统计</cite>
+                            <span class="layui-nav-more"></span></a>
+
+                        <dl class="layui-nav-child">
+                            <dd data-name="统计报表">
+                                <a lay-href="{:url('statistical/index')}" title="统计报表">统计报表</a>
+                            </dd>
+                        </dl>
+                    </li>
+
+
+                </ul>
+            </div>
+        </div>
+        <!-- 页面标签 -->
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down layadmin-tabs-control-bg">
+                <ul class="layui-nav layadmin-tabs-select " lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein ">
+                            <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                            <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                            <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                        </dl>
+                    </li>
+                </ul>
+            </div>
+            <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="{:url('Main/index')}" lay-attr="{:url('Main/index')}" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                </ul>
+            </div>
+        </div>
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe src="{:url('Main/index')}" frameborder="0" class="layadmin-iframe"></iframe>
+            </div>
+        </div>
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
+    </div>
+</div>
+
+<script src="/themes/admin_htcyltd/public/assets/js/jquery-1.10.2.min.js"></script>
+<script src="/themes/admin_htcyltd/public/assets/js/bootstrap.min.js"></script>
+<script src="/themes/admin_htcyltd/public/assets/simpleboot3/js/adminindex.js"></script>
+
+<script src="/themes/admin_htcyltd/public/layuiadmin/layui/layui.js"></script>
+<include file="substation/public@script"/>
+
+<script>
+    layui.config({
+        base: '/themes/admin_htcyltd/public/layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+</script>
+</body>
+</html>

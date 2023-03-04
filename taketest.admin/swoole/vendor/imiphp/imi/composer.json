@@ -1,0 +1,129 @@
+{
+    "name": "imiphp/imi",
+    "type": "library",
+    "license": "MulanPSL-1.0",
+    "description": "imi 是一款支持长连接微服务分布式的 PHP 开发框架，它可以运行在 PHP-FPM、Swoole、Workerman、RoadRunner 等多种容器环境下。它支持 HttpApi、WebSocket、TCP、UDP、MQTT 服务的开发。",
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "composer-runtime-api": "^2.0",
+        "monolog/monolog": "^2.2",
+        "phpdocumentor/reflection-docblock": "^5.2",
+        "psr/container": "~1.1|~2.0",
+        "psr/http-message": "~1.0",
+        "psr/http-server-middleware": "~1.0",
+        "psr/log": "~1.0|~2.0|~3.0",
+        "psr/simple-cache": "~1.0",
+        "symfony/console": "^5.1",
+        "symfony/event-dispatcher": "^5.1",
+        "symfony/polyfill-php80": "^1.23",
+        "symfony/polyfill-php81": "^1.23",
+        "symfony/process": "^5.1",
+        "vlucas/phpdotenv": "~5.3",
+        "yurunsoft/doctrine-annotations": "^1.73.0"
+    },
+    "require-dev": {
+        "friendsofphp/php-cs-fixer": "~3.4.0",
+        "phpstan/phpstan": "~1.3.0",
+        "phpunit/phpunit": ">=9",
+        "rector/rector": "^0.12.10",
+        "yurunsoft/ide-helper": "~1.0",
+        "yurunsoft/yurun-http": "^4.0.0"
+    },
+    "replace": {
+        "symfony/polyfill-php71": "*",
+        "symfony/polyfill-php72": "*",
+        "symfony/polyfill-php73": "*",
+        "symfony/polyfill-php74": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Imi\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Imi\\Dev\\": "dev/",
+            "Imi\\Test\\": "tests/unit/"
+        },
+        "files": [
+            "dev/bootstrap.php"
+        ]
+    },
+    "suggest": {
+        "ext-inotify": "高性能热更新支持"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "yurunsoft/ide-helper": true
+        }
+    },
+    "bin": [
+        "src/Cli/bin/imi-cli"
+    ],
+    "scripts": {
+        "post-autoload-dump": [
+            "@composer install-components"
+        ],
+        "install-components": "Imi\\Dev\\Plugin::dev",
+        "generate-ide-helper": "Imi\\Dev\\Plugin::IDEHelper",
+        "test": "@php -dapc.enable_cli=1 vendor/bin/phpunit -c ./tests/phpunit.xml",
+        "install-test": "@php --ri swoole && composer install && cd ../ && composer test",
+        "test-swoole": "@php src/Components/swoole/bin/swoole-phpunit -c src/Components/swoole/tests/phpunit.xml",
+        "test-workerman": "@php src/Components/workerman/vendor/bin/phpunit -c src/Components/workerman/tests/phpunit.xml",
+        "test-workerman-gateway-w": "@php src/Components/workerman-gateway/vendor/bin/phpunit -c src/Components/workerman-gateway/tests/phpunit.xml --testsuite workerman",
+        "test-workerman-gateway-s": "@php src/Components/workerman-gateway/vendor/bin/phpunit -c src/Components/workerman-gateway/tests/phpunit.xml --testsuite swoole",
+        "test-workerman-gateway": [
+            "@composer test-workerman-gateway-w",
+            "@composer test-workerman-gateway-s"
+        ],
+        "test-roadrunner": "@php src/Components/roadrunner/vendor/bin/phpunit -c src/Components/roadrunner/tests/phpunit.xml",
+        "test-fpm": "@php src/Components/fpm/vendor/bin/phpunit -c src/Components/fpm/tests/phpunit.xml",
+        "test-jwt": "@php src/Components/jwt/vendor/bin/phpunit -c src/Components/jwt/tests/phpunit.xml",
+        "test-queue": "@php src/Components/swoole/bin/swoole-phpunit -c src/Components/queue/tests/phpunit.xml",
+        "test-amqp": [
+            "AMQP_TEST_MODE=swoole php src/Components/swoole/bin/swoole-phpunit -c src/Components/amqp/tests/phpunit.xml",
+            "AMQP_TEST_MODE=workerman php src/Components/swoole/bin/swoole-phpunit -c src/Components/amqp/tests/phpunit.xml"
+        ],
+        "test-kafka": [
+            "AMQP_TEST_MODE=swoole php src/Components/swoole/bin/swoole-phpunit -c src/Components/kafka/tests/phpunit.xml",
+            "AMQP_TEST_MODE=workerman php src/Components/swoole/bin/swoole-phpunit -c src/Components/kafka/tests/phpunit.xml"
+        ],
+        "test-grpc": "@php src/Components/swoole/bin/swoole-phpunit -c src/Components/grpc/tests/phpunit.xml",
+        "test-snowflake": "@php src/Components/snowflake/vendor/bin/phpunit -c src/Components/snowflake/tests/phpunit.xml",
+        "test-mqtt": "@php src/Components/swoole/bin/swoole-phpunit -c src/Components/mqtt/tests/phpunit.xml",
+        "test-smarty": "@php src/Components/smarty/vendor/bin/phpunit -c src/Components/smarty/tests/phpunit.xml",
+        "test-pgsql": "@php src/Components/swoole/bin/swoole-phpunit -c src/Components/pgsql/tests/phpunit.xml",
+        "test-components": [
+            "@composer test-swoole",
+            "@composer test-workerman",
+            "@composer test-workerman-gateway",
+            "@composer test-fpm",
+            "@composer test-jwt",
+            "@composer test-queue",
+            "@composer test-amqp",
+            "@composer test-kafka",
+            "@composer test-grpc",
+            "@composer test-snowflake",
+            "@composer test-mqtt",
+            "@composer test-smarty",
+            "@composer test-pgsql"
+        ]
+    },
+    "extra": {
+        "ide-helper": {
+            "list": [
+                "redis",
+                "inotify",
+                "swoole_postgresql",
+                "apcu"
+            ]
+        }
+    }
+}

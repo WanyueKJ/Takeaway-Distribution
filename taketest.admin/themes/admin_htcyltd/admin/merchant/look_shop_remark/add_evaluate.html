@@ -1,0 +1,38 @@
+<include file="public@header"/>
+<style>html {
+    background-color: #ffffff;
+}</style>
+</head>
+<body>
+<div class="layui-fluid">
+    <form method="post" class="layui-form js-ajax-form" style="margin-top:20px ;"
+          action="{:url('merchant.lookShopRemark/addEvaluatePost')}">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+
+                <div class="layui-card-body">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>名称</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" name="name" required>
+                        </div>
+                    </div>
+                    <input type="hidden" class="layui-input" name="type_id" value="{$type_id}" required>
+
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button type="submit" class="layui-btn js-ajax-submit">{:lang('ADD')}</button>
+                            <a class="layui-btn layui-btn-primary btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="public@script"/>
+
+</body>
+</html>

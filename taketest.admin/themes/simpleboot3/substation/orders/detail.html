@@ -1,0 +1,122 @@
+<include file="substation/public@header"/>
+<style>html {background-color: #ffffff;}</style>
+
+</head>
+<body>
+<div class="layui-fluid">
+    <form method="post" class="layui-form js-ajax-form" action="" style="margin-top: 20px;">
+        <input type="password" autocomplete="new-password" style="width: 0;height: 0;margin:0;padding: 0;border: none; ">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li ><a href="{:url('orders/index')}">列表</a></li>
+                        <li class="layui-this"><a >订单详情</a></li>
+                    </ul>
+                </div>
+
+                <div class="layui-card-body">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required"></span>订单类型</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['type_t']}
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required"></span>订单号</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['orderno']}
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required"></span>下单用户</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['uinfo']['user_nickname']} ({$data['uid']} )
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required"></span>订单金额</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            总金额：{$data['money_total']}<br>
+                            优惠券抵扣：{$data['discount_money']}<br>
+                            实际支付：{$data['money']}<br>
+                            <if condition="$data['type'] eq 1 || $data['type'] eq 2">
+                                基础配送费：{$data['extra']['computed']['money_basic']} <br>
+                                距离附加费：{$data['extra']['computed']['money_distance']} <br>
+                                重量附加费：{$data['extra']['computed']['money_weight']} <br>
+                                时段附加费：{$data['extra']['timemoney']} <br>
+                            </if>
+                            <if condition="$data['type'] eq 3">
+                                基础配送费：{$data['extra']['computed']['money_basic']} <br>
+                                距离附加费：{$data['extra']['computed']['money_distance']} <br>
+                                时段附加费：{$data['extra']['timemoney']} <br>
+                            </if>
+                            <if condition="$data['type'] eq 4">
+                                基础配送费：{$data['extra']['computed']['money_basic']} <br>
+                                时长附加费：{$data['extra']['computed']['money_length']} <br>
+                                时段附加费：{$data['extra']['timemoney']} <br>
+                            </if>
+                            <if condition="$data['type'] eq 5">
+                                基础配送费：{$data['extra']['computed']['money_basic']} <br>
+                                预付服务费：{$data['extra']['prepaid']} <br>
+                                时段附加费：{$data['extra']['timemoney']} <br>
+                            </if>
+                        </div>
+                    </div>
+
+                    <!--<div class="layui-form-item">
+                        <label class="layui-form-label">取件照</label>
+
+                        <div class="layui-input-block" style="padding-top:7px;">
+
+                        </div>
+                    </div>-->
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required"></span>时间</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            下单时间：{$data['add_time']}<br>
+                            支付时间：{$data['pay_time']} 支付方式：{$data['pay_type']}<br>
+                            <if condition="$data['grap_time'] neq ''">
+                            接单时间：{$data['grap_time']}<br>
+                            </if>
+                            <if condition="$data['pick_time'] neq ''">
+                            取件/服务时间：{$data['pick_time']}<br>
+                            </if>
+                            <if condition="$data['complete_time'] neq ''">
+                            完成时间：{$data['complete_time']}<br>
+                            </if>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">取件照/服务照</label>
+
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            <volist name="data.thumbs" id="v">
+                                <img src="{$v}" style="cursor: pointer;max-width:150px;max-height:150px;"/>
+                            </volist>
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id" value="{$data['id']}" />
+                            <!--<button type="submit" class="layui-btn js-ajax-submit ">{:lang('EDIT')}</button>-->
+                            <a class="layui-btn layui-btn-primary btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<include file="substation/public@script"/>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{$site_info.site_name|default=''}</title>
+    <meta name="keywords" content="{$site_info.site_seo_keywords|default=''}"/>
+    <meta name="description" content="{$site_info.site_seo_description|default=''}">
+    <include file="public@head"/>
+    <link rel="stylesheet" type="text/css" href="__STATIC__/index/css/index.css?t=1587343942">
+</head>
+<body class="body-white">
+    <div class="content pr">
+        <img src="__STATIC__/index/images/logo.png?t=1643103253" class="logo">
+        <img src="__STATIC__/index/images/shouji.png?t=1643103253" class="shouji">
+        <img src="__STATIC__/index/images/text.png?t=1643103253" class="text">
+        <a href="{$site_info['ipa_url']}" class="ios"><img src="__STATIC__/index/images/appstore.png" class="c-2 ios"></a>
+        <a href="{$site_info['apk_url']}" class="android"><img src="__STATIC__/index/images/android.png" class="c-2"></a>
+        <div class="c-text">
+            <img src="{:cmf_get_image_preview_url($site_info.qr_url)}" class="c-5"/>
+        </div>
+        <p class="footer-copy">{:nl2br($site_info['copyright'])}</p>
+    </div>
+</body>
+</html>
