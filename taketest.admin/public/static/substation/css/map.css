@@ -1,0 +1,271 @@
+*{
+    -moz-box-sizing: border-box;  /*Firefox3.5+*/
+    -webkit-box-sizing: border-box; /*Safari3.2+*/
+    -o-box-sizing: border-box; /*Opera9.6*/
+    -ms-box-sizing: border-box; /*IE8*/
+    box-sizing: border-box;
+}
+html,body{
+    min-width:1280px;
+    min-height:600px;
+    height:100%;
+}
+
+::-webkit-scrollbar{
+    width:8px;
+    height:8px;
+}
+/*定义滚动条轨道（track）和滑块（thumb）*/
+::-webkit-scrollbar-thumb,::-webkit-scrollbar-track{
+    border-right:1px solid transparent;
+    border-left:1px solid transparent;
+    background-color:rgba(0,0,0,.1);
+}
+::-webkit-scrollbar-thumb{
+    border-radius:8px;
+    background-color:rgba(0,0,0,.2)
+}
+/*定义水平和垂直滚动条两者的交界处（拐角）*/
+::-webkit-scrollbar-corner{
+    display:block;
+}
+::-webkit-scrollbar-track:hover{
+    background-color:rgba(0,0,0,.15);
+}
+::-webkit-scrollbar-thumb:hover{
+    background-color:rgba(0,0,0,.5);
+}
+
+/* 隐藏滚动条 */
+.hidescroll{
+    overflow: hidden;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    overflow: -moz-scrollbars-none;
+    scrollbar-width: none;
+}
+.hidescroll::-webkit-scrollbar { width: 0 !important }
+
+.body{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+
+    width: 100%;
+    height: 100%;
+
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+
+    background: #fff;
+}
+
+.bodybd{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+.body_left{
+    width: 300px;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+.body_center{
+    flex: 1;
+}
+.body_right{
+    width: 240px;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.searchbd{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    padding: 0 15px;
+    height: 50px;
+    background-color: #fafafa;
+    border-bottom: 1px solid #f5f5f5;
+    align-items: center;
+}
+.searchbd_t{
+    width: 50px;
+}
+.searchbd_i{
+    flex: 1;
+}
+.searchbd_input{
+    width: 100%;
+    height: 30px;
+    padding: 4px 7px;
+    border: 1px solid #dcdee2;
+}
+.searchbd_btn{
+    display: inline-block;
+    margin-left: 8px;
+    width: 60px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #fff;
+    background: #26b594;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+.mapbd{
+    width: 100%;
+    height: 100%;
+}
+.order_list{
+    flex: 1;
+}
+.order_item{
+    margin: 10px;
+    padding: 0 10px 10px;
+    border: 1px solid #f5f5f5;
+    cursor: pointer;
+}
+.order_item:hover{
+    -webkit-box-shadow: 0 0 10px #f5f5f5;
+    -moz-box-shadow: 0 0 10px #f5f5f5;
+    box-shadow: 0 0 10px #f5f5f5;
+}
+.order_item_type{
+    margin: 0 -10px 5px;
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    align-items: center;
+    height: 40px;
+    background: #26b594;
+}
+.order_item_typetxt{
+    margin-left: 10px;
+    flex: 1;
+    color: #ffffff;
+}
+.order_item_sel{
+    display: none;
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    border-radius: 10px;
+    background: #efefef;
+    /*color: #fff;*/
+    font-size: 14px;
+}
+.order_item_no{
+    margin-bottom: 5px;
+    height: 30px;
+    line-height: 30px;
+}
+.order_item_location{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+}
+.order_item_tag{
+    margin-right: 10px;
+    display: inline-block;
+    width: 22px;
+    height: 16px;
+    line-height: 16px;
+    text-align: center;
+    color: #ffffff;
+    background: #f5222d;
+    border-radius: 3px;
+
+}
+.order_item_tag.on{
+    background: #26b594;
+}
+.order_item_name{
+    flex: 1;
+    font-weight: bold;
+}
+
+.order_item_user{
+    margin-bottom: 5px;
+    padding: 5px 0;
+    color: #696969;
+    background: #fcfcfc;
+    border: 1px dashed #f0f0f0;
+}
+.order_item_service{
+    margin-bottom: 5px;
+    color: #ffba00;
+}
+.order_item_add{
+    color: #13ce66;
+}
+
+.order_item.on .order_item_sel{
+    display: block;
+}
+
+
+.rider_list{
+    flex: 1;
+}
+.rider_item{
+    padding: 13px;
+    align-items: center;
+    border-bottom: 1px solid #f5f5f5;
+}
+.rider_item_t{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+}
+.rider_item_c{}
+.rider_item_b{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content:flex-end;
+}
+
+.rider_item_n{
+    flex: 1;
+    font-weight: bold;
+}
+.rider_item_p{
+    font-size: 12px;
+}
+.rider_item_btn{
+    display: inline-block;
+    margin-left: 8px;
+    width: 50px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    color: #26b594;
+    border:1px solid #26b594;
+    border-radius: 2px;
+    cursor: pointer;
+}
+body .amap-marker-label{
+    padding: 0;
+    touch-action: none;
+    background-color: transparent;
+    border: none;
+}
+body .amap-marker-label .map_name{
+    text-align: center;
+    cursor: pointer;
+    background-color: #fff;
+    box-shadow: 0 0 8px #bcbcbc;
+    padding: 3px;
+    border-radius: 3px;
+}

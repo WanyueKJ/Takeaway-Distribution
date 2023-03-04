@@ -1,0 +1,106 @@
+<include file="public@header"/>
+</head>
+<body>
+<div class="layui-fluid">
+    <div class="layui-row">
+        <div class="layui-page-header">
+            <div class="layui-card">
+                <div class="layui-page-header-content">
+                    <div class="layui-card-body">
+                        <div class="layui-ui-page-header-title" >
+                            协议管理<span class="layui-badge-rim page-content">协议管理</span>
+                        </div>
+                    </div>
+                    <div class="layui-tab layui-tab-brief">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this"><a href="{:url('AdminPage/indexProtocol')}">协议管理</a></li>
+                            <li><a href="{:url('AdminPage/add',['type'=>'protocol'])}">添加页面</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-page-content js-check-wrap">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <form class="layui-form" method="post" action="{:url('AdminPage/indexProtocol')}">
+                        <div class="layui-form-item layuiadmin-card-text" style="margin-bottom: 0;">
+                            <div class="layui-inline">
+                                <label class="layui-form-label">标题</label>
+                                <div class="layui-input-inline">
+                                    <div class="layui-input-inline">
+                                        <input type="text" class="layui-input" name="keyword" style="width: 200px;"
+                                               value="{$keyword|default=''}" placeholder="请输入关键字">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <button class="layui-btn">搜索</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="layui-page-content">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <form class="layui-form js-ajax-form" method="post">
+                        <div class="layui-btn-container">
+                        </div>
+                        <table class="layui-table js-check-wrap" id="menus-table" lay-even lay-size="lg">
+                            <thead>
+                            <tr>
+
+                                <th width="50">ID</th>
+                                <th>标题</th>
+                                <th>链接</th>
+                                <th>作者</th>
+                                <th width="160">发布时间</th>
+                                <th width="100">状态</th>
+                                <th width="112">操作</th>
+                            </tr>
+                            </thead>
+                            <php>$status=array("1"=>'已发布',"0"=>'未发布');</php>
+                            <foreach name="pages" item="vo">
+                                <tr>
+                                    <td>{$vo.id}</td>
+                                    <td>
+                                        {$vo.post_title}
+                                    </td>
+                                    <td>{:get_upload_path('/appapi/page/detail?id='.$vo['id'])}</td>
+                                    <td>{$vo.user_nickname}</td>
+                                    <td>
+                                        <empty name="vo.published_time">
+                                            未发布
+                                            <else/>
+                                            {:date('Y-m-d H:i',$vo['published_time'])}
+                                        </empty>
+                                    </td>
+                                    <td>
+                                        <notempty name="vo.post_status">
+                                            <a class="layui-badge layui-bg-correct">已发布</a>
+                                            <else/>
+                                            <a class="layui-badge layui-bg-warning">未发布</a>
+                                        </notempty>
+                                    </td>
+                                    <td>
+                                        <a class="layui-bo layui-bo-small layui-bo-checked" href="{:url('AdminPage/edit',array('id'=>$vo['id'],'type'=>'protocol'))}">{:lang('EDIT')}</a>
+
+                                        <if condition="!in_array($vo['id'],[1,2,3,4,5,22,23,24,25,26,28,33])">
+                                            <a class="layui-bo layui-bo-small layui-bo-close js-ajax-delete" href="{:url('AdminPage/delete',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+                                        </if>
+                                        </td>
+                                </tr>
+                            </foreach>
+                        </table>
+                        <div class="pagination">{$page}</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<include file="public@script"/>
+</body>
+</html>

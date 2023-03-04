@@ -1,0 +1,78 @@
+<include file="public@header"/>
+<style>html {background-color: #ffffff;}</style>
+
+</head>
+<body>
+<div class="layui-fluid">
+    <form method="post" class="layui-form js-ajax-form" action="{:url('orders/editPost')}" style="margin-top: 20px;">
+        <input type="password" autocomplete="new-password" style="width: 0;height: 0;margin:0;padding: 0;border: none; ">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li ><a href="{:url('orders/index')}">列表</a></li>
+                        <li class="layui-this"><a >订单详情</a></li>
+                    </ul>
+                </div>
+
+                <div class="layui-card-body">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>会员</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$userinfo['user_nickname']} ({$data['uid']})
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>提现金额</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['money']}
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>提现账号</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['type_t']}<br>
+                            {$data['name']}<br>
+                            {$data['account']}<br>
+                            {$data['account_bank']}
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>三方交易订单号</label>
+                        <div class="layui-input-block">
+                            <input type="text" class="layui-input" name="trade_no" value="{$data.trade_no}">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">审核状态</label>
+                        <div class="layui-input-block">
+                            <select class="layui-input" name="status">
+                                <volist name="status" id="v">
+                                    <option value="{$key}" <eq name="data['status']" value="$key">selected</eq>>{$v}</option>
+                                </volist>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id" value="{$data['id']}" />
+                            <!--
+                            <button type="submit" class="layui-btn js-ajax-submit ">{:lang('EDIT')}</button>
+                            -->
+                            <a class="layui-btn layui-btn-primary btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<include file="public@script"/>
+
+
+</body>
+</html>

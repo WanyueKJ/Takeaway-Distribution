@@ -1,0 +1,69 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="layui-fluid">
+		<div class="layui-row">
+			<div class="layui-page-header">
+				<div class="layui-card">
+					<div class="layui-page-header-content">
+						<div class="layui-card-body">
+                            <div class="layui-ui-page-header-title" >
+                                美食分类
+                                <!-- <span class="layui-badge-rim page-content"></span> -->
+                            </div>
+                        </div>
+						<div class="layui-tab layui-tab-brief">
+							<ul class="layui-tab-title">
+								<li class="layui-this"><a href="{:url('finefood.category/index')}">列表</a></li>
+								<li><a href="{:url('finefood.category/add')}">{:lang('ADD')}</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="layui-page-content js-check-wrap">
+				<div class="layui-card">
+					<div class="layui-card-body">
+						<form method="post" class="js-ajax-form" action="{:url('finefood.category/listOrder')}">
+							<div class="table-actions">
+								<button class="layui-btn layui-btn-sm js-ajax-submit" type="submit">{:lang('SORT')}</button>
+							</div>
+							<table class="layui-table table-hover table-bordered" lay-even lay-size="lg">
+								<thead>
+									<tr>
+										<th width="50" srty>{:lang('SORT')}</th>
+										<th>ID</th>
+										<th>名称</th>
+										<th>图标</th>
+										<th align="center">{:lang('ACTIONS')}</th>
+									</tr>
+								</thead>
+								<tbody>
+									<foreach name="list" item="vo">
+									<tr>
+										<td>
+											<input name="list_orders[{$vo.id}]" class="layui-input" style="height: 20px;" type="text" value="{$vo.list_order}">
+										</td>
+										<td>{$vo['id']}</td>
+										<td>{$vo['name']}</td>
+										<td><img src="{$vo['thumb']}" alt=""></td>
+										<td>
+											<a class="layui-bo layui-bo-small layui-bo-checked" href="{:url('finefood.category/edit',array('id'=>$vo['id']))}">{:lang('EDIT')}</a>
+											<a class="layui-bo layui-bo-small layui-bo-close js-ajax-delete" href="{:url('finefood.category/del',array('id'=>$vo['id']))}">{:lang('DELETE')}</a>
+										</td>
+									</tr>
+									</foreach>
+								</tbody>
+							</table>
+							<div class="pagination">{$page}</div>
+				
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<include file="public@script"/>
+</body>
+</html>

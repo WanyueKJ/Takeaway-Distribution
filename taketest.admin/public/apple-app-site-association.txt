@@ -1,0 +1,11 @@
+{
+    "applinks": {
+        "apps": [],
+        "details": [
+            {
+                "appID": "KR98RKMC6T.com.mika.waimai",
+                "paths": [ "*"]
+            }
+        ]
+    }
+}

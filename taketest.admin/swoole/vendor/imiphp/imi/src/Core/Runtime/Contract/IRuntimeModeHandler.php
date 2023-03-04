@@ -1,0 +1,16 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Imi\Core\Runtime\Contract;
+
+/**
+ * 运行时模式处理器.
+ */
+interface IRuntimeModeHandler
+{
+    /**
+     * 初始化.
+     */
+    public function init(): void;
+}

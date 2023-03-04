@@ -1,0 +1,80 @@
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 17:58:08',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 17:58:44',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:00:04',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:00:20',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:01:33',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:01:49',
+)
+array (
+  'action' => 'MerchantStoreProduct.fillingTheInventory',
+  'date' => '2022-09-22 18:01:49',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:04:15',
+)
+array (
+  'action' => 'MerchantStoreProduct.fillingTheInventory',
+  'date' => '2022-09-22 18:04:15',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:04:25',
+)
+array (
+  'action' => 'MerchantStoreProduct.fillingTheInventory',
+  'date' => '2022-09-22 18:04:25',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:04:42',
+)
+array (
+  'action' => 'MerchantStoreProduct.fillingTheInventory',
+  'date' => '2022-09-22 18:04:42',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:05:08',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:05:32',
+)
+array (
+  'action' => 'MerchantStoreProduct.fillingTheInventory',
+  'date' => '2022-09-22 18:05:32',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:06:54',
+)
+array (
+  'action' => 'MerchantStoreProduct.fillingTheInventory',
+  'date' => '2022-09-22 18:06:54',
+)
+array (
+  'action' => 'Mercahnt.resetViews',
+  'date' => '2022-09-22 18:13:38',
+)
+array (
+  'action' => 'MerchantStoreProduct.fillingTheInventory',
+  'date' => '2022-09-22 18:13:38',
+)

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="432d9547-223d-40ba-997d-678ff264f2a7" name="120.53.232.185">
+        <fileTransfer rootFolder="/www/wwwroot/taketest.sdwanyue.com" accessType="SFTP" host="120.53.232.185" port="22" sshConfigId="14479829-38da-4905-b524-e9fe8ddb2d90" sshConfig="root@120.53.232.185:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+      <webServer id="efb057c8-6c50-4923-86df-7532847b2b36" name="120.53.224.156">
+        <fileTransfer rootFolder="/www/wwwroot/take.sdwanyue.com" accessType="SFTP" host="120.53.224.156" port="22" sshConfigId="293d58d1-b573-4982-b337-eaf51b23ed55" sshConfig="root@120.53.224.156:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

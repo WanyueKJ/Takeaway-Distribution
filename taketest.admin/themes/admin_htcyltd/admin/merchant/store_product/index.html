@@ -1,0 +1,103 @@
+<include file="public@header" />
+</head>
+<body>
+	<div class="layui-fluid">
+		<div class="layui-row">
+			<div class="layui-page-header">
+				<div class="layui-card">
+					<div class="layui-page-header-content">
+						<div class="layui-card-body">
+                            <div class="layui-ui-page-header-title" >
+                                商品列表
+                            </div>
+                        </div>
+						<div class="layui-tab layui-tab-brief">
+							<ul class="layui-tab-title">
+								<li class="layui-this"><a>列表</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		
+			<div class="layui-page-content js-check-wrap">
+				<div class="layui-card">
+					<div class="layui-card-body">
+						<form method="post" class="js-ajax-form" action="{:url('merchant.storeProduct/listOrder')}">
+							<div class="table-actions">
+								<button class="layui-btn layui-btn-sm js-ajax-submit" type="submit">{:lang('SORT')}</button>
+							</div>
+							<table class="layui-table table-hover table-bordered" lay-even lay-size="lg" id="menus-table">
+								<thead>
+									<tr>
+										<th width="50" srty>{:lang('SORT')}</th>
+										<th>ID</th>
+										<th>名称</th>
+										<th>价格</th>
+										<th>图片</th>
+										<th>状态</th>
+										<th>销量</th>
+										<th align="center">{:lang('ACTIONS')}</th>
+									</tr>
+								</thead>
+								<tbody>
+								<foreach name="list" item="vo">
+									<tr>
+										<td>
+											<input name="list_orders[{$vo.id}]" class="layui-input" style="height: 20px;" type="text" value="{$vo.list_order}">
+										</td>
+										<td>{$vo['id']}</td>
+										<td>{$vo['name']}</td>
+										<td>{$vo['price']}</td>
+										<td>
+											<foreach name="$vo.image" item="item">
+												<notempty name="item">
+													<a href="javascript:admin.imagePreviewDialog('{$item}');">
+														<i class="icon-icon layui-icon-md-images"></i>
+													</a>
+													<else/>
+													<a><i class="icon-icon layui-icon-md-close"></i></a>
+												</notempty>
+											</foreach>
+										</td>
+										<td>{$vo['is_show']}</td>
+										<td>{$vo['sales']}</td>
+										<td>
+											<if condition="$vo.is_show_o eq 0">
+												<a class="layui-bo layui-bo-checked layui-bo-small js-ajax-dialog-btn" href='{:url("merchant.storeProduct/isShow",array("id"=>$vo["id"],"is_show"=>1))}'>上架</a>
+												<else/>
+												<a class="layui-bo layui-bo-checked layui-bo-small js-ajax-dialog-btn" href='{:url("merchant.storeProduct/isShow",array("id"=>$vo["id"],"is_show"=>0))}'>下架</a>
+											</if>
+
+											<if condition="$vo.recommend_o eq 0">
+												<a class="layui-bo layui-bo-checked layui-bo-small js-ajax-dialog-btn" href='{:url("merchant.storeProduct/recommend",array("id"=>$vo["id"],"recommend"=>1))}'>推荐</a>
+												<else/>
+												<a class="layui-bo layui-bo-checked layui-bo-small js-ajax-dialog-btn" href='{:url("merchant.storeProduct/recommend",array("id"=>$vo["id"],"recommend"=>0))}'>取消推荐</a>
+											</if>
+											<a class="layui-bo layui-bo-small layui-bo-close js-ajax-dialog-btn" href='{:url("merchant.storeProduct/delete",array("id"=>$vo["id"]))}'>删除</a>
+
+										</td>
+									</tr>
+								</foreach>
+								</tbody>
+							</table>
+				
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<include file="public@script"/>
+	<script>
+		$(document).ready(function() {
+			Wind.css('treeTable');
+			Wind.use('treeTable', function() {
+				$("#menus-table").treeTable({
+					indent : 20
+				});
+			});
+		});
+	</script>
+</body>
+</html>

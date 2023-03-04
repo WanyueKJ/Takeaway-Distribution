@@ -1,0 +1,179 @@
+<include file="substation/public@header" />
+</head>
+<body>
+<div class="layui-fluid">
+	<div class="layui-row">
+		<div class="layui-page-header">
+            <div class="layui-card">
+                <div class="layui-page-header-content">
+                    <div class="layui-card-body">
+                        <div class="layui-ui-page-header-title" >
+                            订单管理<!--<span class="layui-badge-rim page-content">系统订单</span>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+		<div class="layui-page-content">
+			<div class="layui-card">
+				<div class="layui-card-body">
+					<form class="layui-form" method="post" action="{:url('orders/index')}">
+						<div class="layui-form-item layuiadmin-card-text">
+
+							<div class="layui-inline">
+								<label class="layui-form-label">
+									类型
+								</label>
+								<div class="layui-input-inline">
+									<select class="layui-input" name="type">
+										<option value="">全部</option>
+										<volist name="type" id="v">
+											<option value="{$key}" <if condition="input('request.type') neq '' && input('request.type') eq $key">selected</if>>{$v}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+
+							<div class="layui-inline">
+								<label class="layui-form-label">
+									状态
+								</label>
+								<div class="layui-input-inline">
+									<select class="layui-input" name="status">
+										<option value="">全部</option>
+										<volist name="status" id="v">
+											<option value="{$key}" <if condition="input('request.status') neq '' && input('request.status') eq $key">selected</if>>{$v}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+
+							<div class="layui-inline">
+								<label class="layui-form-label">
+									支付方式
+								</label>
+								<div class="layui-input-inline">
+									<select class="layui-input" name="paytype">
+										<option value="">全部</option>
+										<volist name="paytype" id="v">
+											<option value="{$key}" <if condition="input('request.paytype') neq '' && input('request.paytype') eq $key">selected</if>>{$v}</option>
+										</volist>
+									</select>
+								</div>
+							</div>
+		
+							<div class="layui-inline">
+								<label class="layui-form-label">提交时间</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input js-bootstrap-date" name="start_time"
+										   value="{:input('request.start_time')}"
+										   autocomplete="off" placeholder="开始日期">
+								</div>
+								<div class="layui-form-mid">-</div>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input js-bootstrap-date" name="end_time"
+										   value="{:input('request.end_time')}"
+										   autocomplete="off" placeholder="结束日期">
+								</div>
+							</div>
+		
+		
+							<div class="layui-inline">
+								<label class="layui-form-label">用户ID</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" name="uid" value="{:input('request.uid')}" placeholder="请输入用户ID">
+								</div>
+							</div>
+		
+							<div class="layui-inline">
+								<label class="layui-form-label">关键字</label>
+								<div class="layui-input-inline">
+									<input type="text" class="layui-input" name="keyword" value="{:input('request.keyword')}" placeholder="请输入关键字">
+								</div>
+							</div>
+		
+							<div class="layui-inline">
+								<div class="layui-input-inline">
+									<input type="submit" class="layui-btn btn-primary" value="搜索" />
+									<a class="layui-btn layui-btn-danger btn-danger" href="{:url('orders/index')}">清空</a>
+								</div>
+							</div>
+						</div>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+	
+		<div class="layui-page-content">
+			<div class="layui-card">
+				<div class="layui-card-body">
+					<table class="layui-table" lay-even lay-size="lg">
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>类型</th>
+							<th>会员</th>
+							<th>总价</th>
+							<th>优惠价</th>
+							<th>实付</th>
+							<th>订单号</th>
+							<th>三方订单号</th>
+							<th>支付方式</th>
+							<th>状态</th>
+							<th>提交时间</th>
+							<th>支付时间</th>
+							<th>{:lang('ACTIONS')}</th>
+						</tr>
+						</thead>
+						<tbody>
+						<foreach name="lists" item="vo">
+							<tr>
+								<td>{$vo.id}</td>
+								<td>{$type[$vo['type']]}</td>
+								<td>{$vo['userinfo']['user_nickname']} ({$vo['uid']})</td>
+								<td>{$vo['money_total']}</td>
+								<td>{$vo['discount_money']}</td>
+								<td>{$vo['money']}</td>
+								<td>{$vo['orderno']}</td>
+								<td>{$vo['trade_no']}</td>
+								<td>{$paytype[$vo['paytype']]}</td>
+								<td>{$status[$vo['status']]}</td>
+								<td>{:date('Y-m-d H:i:s',$vo['addtime'])}</td>
+								<td>
+									<if condition="$vo['status'] eq '1'" >
+										待支付
+										<elseif condition="$vo['status'] gt '1' && $vo['status'] neq '10'"/>
+										{:date('Y-m-d H:i:s',$vo['paytime'])}
+										<else/>
+										--
+									</if>
+								</td>
+	
+								<td>
+									<if condition="$vo['status']==7">
+										<a class="layui-bo layui-bo-small layui-bo-close js-ajax-dialog-btn" href="{:url('orders/setrefund',array('id'=>$vo['id'],'status'=>9))}" data-msg="确定要拒绝申请么？">拒绝退款申请</a>
+										<a class="layui-bo layui-bo-small layui-bo-close js-ajax-dialog-btn" href="{:url('orders/setrefund',array('id'=>$vo['id'],'status'=>8))}" data-msg="确定要同意申请么？">同意退款申请</a>
+									</if>
+
+
+									<a class="layui-bo layui-bo-small layui-bo-succes" href='{:url("orders/detail",array("id"=>$vo["id"]))}'>订单详情</a>
+
+								</td>
+							</tr>
+						</foreach>
+						</tbody>
+					</table>
+					<div class="pagination">{$page}</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+<include file="substation/public@script"/>
+</body>
+</html>

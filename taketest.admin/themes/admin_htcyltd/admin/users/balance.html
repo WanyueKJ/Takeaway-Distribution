@@ -1,0 +1,76 @@
+<include file="public@header"/>
+<style>html {background-color: #ffffff;}</style>
+
+</head>
+<body>
+<div class="layui-fluid">
+    <form method="post" class="layui-form js-ajax-form" action="{:url('users/setBalance')}" style="margin-top: 20px;">
+        <input type="password" autocomplete="new-password" style="width: 0;height: 0;margin:0;padding: 0;border: none; ">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <li ><a href="{:url('users/index')}">列表</a></li>
+                        <li class="layui-this"><a >余额增减</a></li>
+                    </ul>
+                </div>
+
+                <div class="layui-card-body">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>用户名</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['user_login']}
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>昵称</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['user_nickname']}
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>余额</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data['balance']}
+                        </div>
+                    </div>
+
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">增减</label>
+                        <div class="layui-input-block">
+                            <select class="layui-input" name="type">
+                                <option value="1">增加</option>
+                                <option value="2">扣除</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>金额</label>
+                        <div class="layui-input-block">
+                            <input type="text" required lay-verify="required" class="layui-input" name="coin" value="">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id" value="{$data['id']}" />
+                            <button type="submit" class="layui-btn js-ajax-submit ">{:lang('EDIT')}</button>
+                            <a class="layui-btn layui-btn-primary btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+<include file="public@script"/>
+
+</body>
+</html>

@@ -1,0 +1,188 @@
+<include file="public@header"/>
+<style>
+  .table img {
+    width: 50px;
+  }
+
+  .layui-tab.back {
+    margin-bottom: 10px;
+  }
+
+  .back a {
+    color: #969696;
+  }
+
+
+  .detail td{
+    border-width: 0;
+  }
+
+  .trade_item_list{
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .trade_item_list .trade_item{
+    flex: 1;
+  }
+  .trade_item_v{
+    font-size: 16px;
+    font-weight: bold;
+  }
+  .js_tips{
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+<div class="layui-fluid">
+  <div class="layui-row">
+    <div class="layui-page-header">
+      <div class="layui-card">
+        <div class="layui-page-header-content">
+          <div class="layui-card-body">
+            <div class="layui-ui-page-header-title" >
+              评价列表
+            </div>
+          </div>
+          <div class="layui-tab layui-tab-brief">
+            <ul class="layui-tab-title">
+              <li class="layui-this"><a>列表</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  <div class="layui-row">
+
+    <div class="layui-page-content">
+
+      <div class="layui-card">
+        <div class="layui-card-body">
+          <form method="post" class="js-ajax-form" method="post">
+            <table class="layui-table table-hover table-bordered table-list" id="menus-table" lay-even=""
+                   lay-size="lg">
+              <thead>
+              <tr>
+                <th width="80">ID</th>
+                <th>所属商家</th>
+                <th>所属单号</th>
+                <th>
+                  订单评分
+                </th>
+                <th>下单时间</th>
+                <th>评价用户</th>
+                <th>评价内容</th>
+                <th>商品数量</th>
+                <th>评价点赞</th>
+                <th>商家回复</th>
+                <th>回复时间时间</th>
+                <th>是否展示</th>
+                <th>评论图片</th>
+                <th>评价时间</th>
+                <th align="center">{:lang('ACTIONS')}</th>
+              </tr>
+              </thead>
+              <tbody>
+              <volist name="list" id="vo">
+                <tr>
+                  <td>
+                    {$vo['id']}
+                  </td>
+                  <td>
+                    {$vo['store']['name'] ?? '--'}
+                  </td>
+                  <td>
+                    {$vo['storeOrder']['order_id'] ?? '--'}
+                  </td>
+                  <td>
+                    <if condition="$vo.o_top_type_id == 1">
+                      总体:{$vo['overall_star'] ?? '--'}|
+                      口味:{$vo['taste_star'] ?? '--'}|
+                      包装:{$vo['packaging_star'] ?? '--'}
+                      <elseif condition="$vo.o_top_type_id==3">
+                      总体:{$vo['overall_star'] ?? '--'}|
+                      态度:{$vo['taste_star'] ?? '--'}|
+                      质量:{$vo['packaging_star'] ?? '--'}
+                      <elseif condition="in_array($vo.o_top_type_id,[5,6,7,8])">
+                      总体:{$vo['overall_star'] ?? '--'}|
+                      质量:{$vo['taste_star'] ?? '--'}|
+                      包装:{$vo['packaging_star'] ?? '--'}
+                      <else/>
+                        --
+                    </if>
+                  </td>
+                  <td>
+                    {$vo['storeOrder']['add_time'] ?? '--'}
+                  </td>
+                  <td>{$vo['userinfo']['user_nickname'] ?? '--'}({$vo['uid']})</td>
+                  <td>{$vo['content']}</td>
+                  <td>{$vo['store_order']['total_num'] ?? '--'}</td>
+                  <td>{$vo['like']}</td>
+                  <td>
+                    {$vo['merchant_reply_content'] ?: '--'}
+                  </td>
+                  <td>
+                    <if strtotime($vo['merchant_reply_time']) == 0>
+                      ---
+                      <else/>
+                      {$vo['merchant_reply_time'] ?: '--'}
+                    </if>
+                    
+                  </td>
+                  <td>
+                    {$vo['is_show']}
+                  </td>
+                  <td>
+                    <foreach name="$vo.pics" item="item">
+                      <notempty name="item">
+                        <a href="javascript:admin.imagePreviewDialog('{$item}');">
+                          <i class="icon-icon layui-icon-md-images"></i>
+                        </a>
+                        <else/>
+                        <a><i class="icon-icon layui-icon-md-close"></i></a>
+                      </notempty>
+                    </foreach>
+                  </td>
+                  <td>{$vo['addtime']}</td>
+
+                  <td>
+                    <if condition="$vo['o_is_show']">
+                      <a class="layui-bo layui-bo-checked layui-bo-small js-ajax-delete" data-msg="确定此项操作?" href="{:url('merchant.cate/setShow',array('oid'=>$vo['oid'],'is_show'=>0))}">隐藏</a>
+                    <else/>
+                      <a class="layui-bo layui-bo-checked layui-bo-small js-ajax-delete" data-msg="确定此项操作?" href="{:url('merchant.cate/setShow',array('oid'=>$vo['oid'],'is_show'=>1))}">展示</a>
+                    </if>
+                    <a class="layui-bo layui-bo-checked layui-bo-small" href="javascript:admin.openIframeLayer('{:url('merchant.cate/productReply',array('store_oid'=>$vo['oid']))}','商品详情',{area:['60%', '600px'],end:function(){}})">商品详情</a>
+                    <if condition="$vo['video']">
+                      <a class="layui-bo layui-bo-checked layui-bo-small" href="javascript:admin.openIframeLayer('{:url('merchant.cate/replyVideo',array('id'=>$vo['id']))}','评价视频',{area:['60%', '600px'],end:function(){}})">评价视频</a>
+                    </if>
+
+                    <a class="layui-bo layui-bo-small layui-bo-close js-ajax-delete" href="{:url('merchant.cate/delete',array('oid'=>$vo['oid']))}">{:lang('DELETE')}</a>
+                  </td>
+                </tr>
+              </volist>
+              </tbody>
+            </table>
+            <div class="pagination">{$page}</div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<include file="public@script"/>
+<script>
+  (function (){
+    $('.js_tips').mouseover(function (){
+      let _that=$(this);
+      let tip=_that.data('tip');
+      layer.tips(tip, _that);
+    })
+  })()
+</script>
+</body>
+</html>

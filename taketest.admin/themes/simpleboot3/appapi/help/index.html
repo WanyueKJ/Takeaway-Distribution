@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>帮助中心</title>
+    <include file="appapi@head"/>
+    <link href='__STATIC__/appapi/css/help.css?t=1642641697' rel="stylesheet" type="text/css" >
+</head>
+<body>
+
+    <div class="data_content">
+        <volist name="$list" id="vo">
+            <a href="/appapi/help/detail?id={$vo.id}" class="data_content_li">
+                <div class="data_content_li_title">{$vo.post_title}</div>
+                <img class="data_content_li_img" src="__STATIC__/appapi/images/help/zhe.png">
+            </a>
+        </volist>
+
+    </div>
+
+     <include file="appapi@footer"/>
+     <include file="appapi@scripts"/>
+</body>
+</html>

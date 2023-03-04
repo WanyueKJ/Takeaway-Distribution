@@ -1,0 +1,162 @@
+<include file="substation/public@header" />
+<style>
+    .layui-form-select dl{
+        z-index: 10000;
+    }
+    .layui-btn{
+        margin-top: 0 !important;
+    }
+    body .smallinput input.layui-input{
+        display: inline-block;
+        width: 60px;
+    }
+</style>
+</head>
+<body>
+	<div class="layui-fluid">
+		<form method="post" class="layui-form js-ajax-form" action="{:url('riderlevel/editPost')}" style="margin-top: 20px;">
+            <div class="layui-col-md12">
+                <div class="layui-card">
+                    <div class="layui-tab layui-tab-brief">
+                        <ul class="layui-tab-title">
+                            <li ><a href="{:url('riderlevel/index',['cityid'=>$data['cityid']])}">列表</a></li>
+                            <li class="layui-this"><a >{:lang('EDIT')}</a></li>
+                        </ul>
+                    </div>
+                    <div class="layui-card-body">
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="form-required">*</span>名称</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="name" class="layui-input" value="{$data.name}">
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="form-required">*</span>等级</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="levelid" class="layui-input" value="{$data.levelid}" > 
+                            </div>
+                        </div>
+
+                        <input type="hidden" name="config[trans_nums]" class="layui-input" value="-" > 
+
+
+                        <div class="layui-form-item">
+                            <label class="layui-form-label"><span class="form-required">*</span>分成模式</label>
+                            <div class="layui-input-block">
+                                <input type="radio" value="1" name="config[run_mode]" lay-filter="run_mode" title="固定" <eq name="data.config.run_mode" value="1">checked</eq>>
+                                <input type="radio" value="2" name="config[run_mode]" lay-filter="run_mode" title='按比例' <eq name="data.config.run_mode" value="2">checked</eq>>
+                                <input type="radio" value="3" name="config[run_mode]" lay-filter="run_mode" title='按距离' <eq name="data.config.run_mode" value="3">checked</eq>>
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item 1feebd 1feebd1">
+                            <label class="layui-form-label"><span class="form-required"></span></label>
+                            <div class="layui-input-block smallinput">
+                                每单固定 <input type="text" class="layui-input" name="config[run_fix]" value="{$data['config']['run_fix']}"> 元
+                                <br>
+                                <br>
+                                骑手收益：固定收入 + 时段附加费 + 重量附加费
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item 1feebd 1feebd2">
+                            <label class="layui-form-label"><span class="form-required"></span></label>
+                            <div class="layui-input-block smallinput">
+                                配送费比例 <input type="text" class="layui-input" name="config[run_rate]" value="{$data['config']['run_rate']}"> %
+                                <br>
+                                <br>
+                                骑手收益：( 基础配送费 + 距离附加费 ) * 配送费比例 + 时段附加费 + 重量附加费 + 小费
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item 1feebd 1feebd3">
+                            <label class="layui-form-label"><span class="form-required"></span></label>
+                            <div class="layui-input-block smallinput">
+                                起始距离 <input type="text" class="layui-input" name="config[distance_basic]" value="{$data['config']['distance_basic']}" >公里内,基础配送费
+                                <input type="text" class="layui-input" name="config[distance_basic_money]" value="{$data['config']['distance_basic_money']}" >元
+                                <br>
+                                <br>
+                                超出后每增加1公里，增加
+                                <input type="text" class="layui-input" name="config[distance_more_money]" value="{$data['config']['distance_more_money']}" >元，
+                                最高 <input type="text" class="layui-input" name="config[distance_max_money]" value="{$data['config']['distance_max_money']}" >元
+                                <br>
+                                <br>
+                                骑手收益：距离配送费 + 时段附加费 + 重量附加费 + 小费
+                                <br>
+                          
+                            </div>
+                        </div>
+
+                        <div class="layui-form-item 1feebd 1feebd2 1distancebd 1distancebd1">
+                            <label class="layui-form-label"><span class="form-required"></span>计费距离取整</label>
+                            <div class="layui-input-block">
+                                <input type="radio" value="1" name="config[distance_type]" title="按实际距离" <eq name="data.config.distance_type" value="1">checked</eq>>
+                                <input type="radio" value="2" name="config[distance_type]" title='向上取整' <eq name="data.config.distance_type" value="2">checked</eq>>
+                                <input type="radio" value="3" name="config[distance_type]" title='向下取整' <eq name="data.config.distance_type" value="3">checked</eq>>
+                                <br>
+                                <br>
+                                例如:订单距离为1.5公里，设置实际距离则按1.5公里计算收入；设置向上取整则按2公里计算收入；设置向下取整则按1公里计算收入。
+                            </div>
+                        </div>
+                                <input type="hidden" value="1" name="config[work_mode]">
+                                <input type="hidden"name="config[work_fix]" value="0.01"> 
+            
+
+                        <div class="layui-form-item">
+                            <div class="layui-input-block">
+                                <input type="hidden" name="cityid" value="{$data.cityid}" />
+                                <input type="hidden" name="id" value="{$data.id}" />
+                                <button type="submit" class="layui-btn js-ajax-submit">{:lang('EDIT')}</button>
+                                <a class="layui-btn layui-btn-primary btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</form>
+	</div>
+    <include file="substation/public@script"/>
+
+    <script>
+        Wind.use('layer');
+        var form;
+
+        function changeMode1(){
+            let type=$('input[name="config[run_mode]"]:checked').val();
+            $('.1feebd').hide();
+            $('.1feebd'+type).show();
+
+        }
+
+        function changeMode2(){
+            let type=$('input[name="config[work_mode]"]:checked').val();
+            $('.2feebd').hide();
+            $('.2feebd'+type).show();
+
+        }
+
+        (function (){
+            changeMode1();
+            changeMode2();
+
+            layui.use(['layer', 'jquery', 'form'], function () {
+                var layer = layui.layer,
+                    $ = layui.jquery;
+                form=layui.form;
+
+                form.on('radio(run_mode)', function(data){
+                    changeMode1();
+                });
+
+                form.on('radio(work_mode)', function(data){
+                    changeMode2();
+                });
+
+            });
+
+        })()
+    </script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+    "name": "thinkcmf/plugins-aliyun",
+    "description": "ThinkCMF阿里云插件",
+    "type": "cmf-plugin",
+    "license": "apache2.0",
+    "authors": [
+        {
+            "name": "lv",
+            "email": "1022284466@qq.com"
+        }
+    ],
+    "require": {
+        "qcloud/cos-sdk-v5": ">=2.0"
+    }
+}

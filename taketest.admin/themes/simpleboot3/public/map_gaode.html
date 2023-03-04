@@ -1,0 +1,12 @@
+<script>
+    var gaode_key='{$gaode_key ?? ""}';
+    var gaode_url='{$gaode_url ?? ""}';
+
+    window._AMapSecurityConfig = {
+        //serviceHost:'您的代理服务器域名或地址/_AMapService',
+        securityJsCode:gaode_url,
+        // 例如 ：serviceHost:'http://1.1.1.1:80/_AMapService',
+    }
+</script>
+<script src="https://webapi.amap.com/loader.js"></script>
+<script src="__STATIC__/map/gaode.js?t=1645173290"></script>

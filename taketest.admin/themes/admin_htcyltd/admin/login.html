@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <title>{$configpub['site_name']}</title>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"/>
+  <meta name="renderer" content="webkit|ie-comp|ie-stand">
+  <meta name="robots" content="noindex,nofollow">
+  <!-- HTML5 shim for IE8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <![endif]-->
+  <link rel="stylesheet" href="__TMPL__/public/layuiadmin/layui/css/layui.css" media="all">
+  <!--[if lt IE 9]>
+  <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <script>
+    if (window.parent !== window.self) {
+      document.write              = '';
+      window.parent.location.href = window.self.location.href;
+      setTimeout(function () {
+        document.body.innerHTML = '';
+      }, 0);
+    }
+    if (window != top){
+        top.location.href = location.href;
+    }
+  </script>
+  <link href="__STATIC__/admin/css/login.css?t=1646125612" rel="stylesheet">
+</head>
+<body>
+<div class="bg">
+  <div class="login_bd">
+    <div class="login_bd_l">
+      <div class="logo_bd">
+        <img src="/logo.png"> {$site_info.site_name|default=''}
+      </div>
+    </div>
+    <div class="login_bd_r">
+      <div class="form_bd">
+        <div class="form_top">
+          <span></span> {$configpub['site_name']}
+        </div>
+        <div class="form_con">
+          <form class="js-ajax-form" action="{:url('public/doLogin')}" method="post">
+            <div class="form_item">
+              <img src="__STATIC__/admin/images/login/name.png">
+              <input type="text" id="input_username" name="username" placeholder="{:lang('USERNAME_OR_EMAIL')}" title="{:lang('USERNAME_OR_EMAIL')}" value="{:cookie('admin_username')}"  lay-verify="required" required>
+            </div>
+
+            <div class="form_item">
+              <img src="__STATIC__/admin/images/login/pass.png">
+              <input type="password" id="input_password" name="password" placeholder="{:lang('PASSWORD')}" title="{:lang('PASSWORD')}"  lay-verify="required" required>
+            </div>
+
+            <div class="form_item">
+              <img src="__STATIC__/admin/images/login/code.png">
+              <input type="text" name="captcha" placeholder="验证码" class="form-control captcha" lay-verify="required">
+              <captcha height="48" width="120" font-size="18"/>
+            </div>
+
+            <div class="form_submit">
+              <input type="hidden" name="redirect" value="">
+              <button class="form_btn js-ajax-submit" type="submit"
+                      data-loadingmsg="{:lang('LOADING')}">
+                {:lang('LOGIN')}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="login_tag">
+        <img src="__STATIC__/admin/images/login/platform.png">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  //全局变量
+  var GV = {
+    ROOT: "__ROOT__/",
+    WEB_ROOT: "__WEB_ROOT__/",
+    JS_ROOT: "static/js/",
+    APP: ''/*当前应用名*/
+  };
+</script>
+<script src="__TMPL__/public/assets/js/jquery-1.10.2.min.js"></script>
+<script src="__STATIC__/js/jquery.validate/jquery.validate.js"></script>
+<script src="__STATIC__/js/ajaxForm.js"></script>
+
+<script src="__TMPL__/public/layuiadmin/layui/layui.js"></script>
+<include file="public@script"/>
+<script type="text/javascript" src="__STATIC__/admin/js/canvas.min.js?t=1610957793" opacity='1' color="255,255,255" zIndex="0"></script>
+<script>
+  (function () {
+    document.getElementById('input_username').focus();
+  })();
+</script>
+</body>
+</html>

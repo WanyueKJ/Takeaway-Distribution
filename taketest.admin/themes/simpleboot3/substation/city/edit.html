@@ -1,0 +1,716 @@
+<include file="substation/public@header" />
+<style>
+    .layui-form-select dl{
+        z-index: 10000;
+    }
+    .layui-btn{
+        margin-top: 0 !important;
+    }
+    body .layui-tab-content .layui-form-label{
+        width: 100px;
+    }
+
+    body .layui-tab-content .layui-input-block{
+        margin-left: 140px;
+    }
+    body .smallinput input.layui-input{
+        display: inline-block;
+        width: 60px;
+    }
+    .timeperiod .layui-form-select{
+        width: 100px;
+        display: inline-block;
+    }
+    .timeperiod .layui-input-inline{
+        margin-bottom: 10px;
+        width: 300px;
+    }
+    .timeperiod .layui-form-checkbox[lay-skin=primary]{
+        margin-top: 0;
+    }
+</style>
+</head>
+<body>
+<div class="layui-fluid">
+    <form method="post" class="layui-form js-ajax-form" action="{:url('city/editPost')}" style="margin-top: 20px;">
+        <div class="layui-col-md12">
+            <div class="layui-card">
+                <div class="layui-tab layui-tab-brief">
+                    <ul class="layui-tab-title">
+                        <!--<li ><a href="{:url('city/index')}">列表</a></li>-->
+                        <li class="layui-this"><a >设置</a></li>
+                    </ul>
+                </div>
+                <div class="layui-card-body">
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required"></span>省份</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$pinfo.name ?? ''}
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required"></span>城市</label>
+                        <div class="layui-input-block" style="padding-top:7px;">
+                            {$data.name}
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label"><span class="form-required">*</span>开通业务</label>
+                        <div class="layui-input-block">
+                            <input type="checkbox" name="type[]" value="6" title="外卖费用" lay-skin="primary" lay-filter="type" <in value="$type" name="'6'">checked="checked"</in> >
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item smallinput">
+                        <label class="layui-form-label"><span class="form-required">*</span>费用配置</label>
+                        <div class="layui-input-block">
+                            <div class="layui-tab layui-tab-brief">
+                                <ul class="layui-tab-title" id="tabHeader">
+                                    <li class="layui-nav-item typebd typebd1 typebd2"></li><li class="layui-nav-item typebd typebd3"></li>
+                                    <li class="layui-nav-item typebd typebd4"></li><li class="layui-nav-item typebd typebd5"></li>
+                                    <li class="layui-nav-item typebd typebd6">外卖费用</li>
+                                </ul>
+                            </div>
+
+                            <div class="layui-tab-content" id="tabBody">
+                                <div class="layui-tab-item">
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required">*</span>配送费</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type1[fee_mode]" lay-filter="1fee_mode" title="固定费用" <eq name="type1['fee_mode']" value="1">checked</eq>>
+                                            <input type="radio" value="2" name="type1[fee_mode]" lay-filter="1fee_mode" title='动态费用' <eq name="type1['fee_mode']" value="2">checked</eq>>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            每单固定配送费 <input type="text" class="layui-input" name="type1[fix_money]" value="{$type1['fix_money']}"> 元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd2">
+                                        <label class="layui-form-label"><span class="form-required">*</span>距离附加费</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="0" name="type1[distance_switch]" lay-filter="1distance_switch" title="关闭" <eq name="type1['distance_switch']" value="0">checked</eq> >
+                                            <input type="radio" value="1" name="type1[distance_switch]" lay-filter="1distance_switch" title='开启' <eq name="type1['distance_switch']" value="1">checked</eq> >
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd2 1distancebd 1distancebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            起始距离 <input type="text" class="layui-input" name="type1[distance_basic]" value="{$type1['distance_basic']}" >公里内,增加
+                                            <input type="text" class="layui-input" name="type1[distance_basic_money]" value="{$type1['distance_basic_money']}" >元
+                                            <br>
+                                            <br>
+                                            超出后每增加1公里，增加
+                                            <input type="text" class="layui-input" name="type1[distance_more_money]" value="{$type1['distance_more_money']}" >元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd2 1distancebd 1distancebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span>距离计算方式</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type1[distance_mode]" title="直线距离" <eq name="type1['distance_mode']" value="1">checked</eq> >
+                                            <input type="radio" value="2" name="type1[distance_mode]" title='骑行规划距离' <eq name="type1['distance_mode']" value="2">checked</eq> >
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd2 1distancebd 1distancebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span>计费距离取整</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type1[distance_type]" title="按实际距离" <eq name="type1['distance_type']" value="1">checked</eq>>
+                                            <input type="radio" value="2" name="type1[distance_type]" title='向上取整' <eq name="type1['distance_type']" value="2">checked</eq>>
+                                            <input type="radio" value="3" name="type1[distance_type]" title='向下取整' <eq name="type1['distance_type']" value="3">checked</eq>>
+                                            <br>
+                                            例如:订单距离为1.5公里，设置实际距离则按1.5公里收费；设置向上取整则按2公里收费；设置向下取整则按1公里收费。
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd2">
+                                        <label class="layui-form-label"><span class="form-required">*</span>重量附加费</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="0" name="type1[weight_switch]" lay-filter="1weight_switch" title="关闭" <eq name="type1['weight_switch']" value="0">checked</eq>>
+                                            <input type="radio" value="1" name="type1[weight_switch]" lay-filter="1weight_switch" title='开启' <eq name="type1['weight_switch']" value="1">checked</eq>>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd2 1weightbd 1weightbd1">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            起始重量 <input type="text" class="layui-input" name="type1[weight_basic]" value="{$type1['weight_basic']}" >公斤内,增加
+                                            <input type="text" class="layui-input" name="type1[weight_basic_money]" value="{$type1['weight_basic_money']}" >元
+                                            <br>
+                                            <br>
+                                            超出后每增加1公斤，增加
+                                            <input type="text" class="layui-input" name="type1[weight_more_money]" value="{$type1['weight_more_money']}" >元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 1feebd 1feebd2 1weightbd 1weightbd1">
+                                        <label class="layui-form-label"><span class="form-required"></span>计费重量取整</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type1[weight_type]" title="按实际重量" <eq name="type1['weight_type']" value="1">checked</eq>>
+                                            <input type="radio" value="2" name="type1[weight_type]" title='向上取整' <eq name="type1['weight_type']" value="2">checked</eq>>
+                                            <input type="radio" value="3" name="type1[weight_type]" title='向下取整' <eq name="type1['weight_type']" value="3">checked</eq>>
+                                            <br>
+                                            例如:订单重量为1.5公斤，设置实际重量则按1.5公斤收费；设置向上取整则按2公斤收费；设置向下取整则按1公斤收费。
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required"></span>服务时间</label>
+                                        <div class="layui-input-block timeperiod">
+                                            时段间隔
+                                            <select class="layui-input" name="type1[h]">
+                                                <volist name="time.h" id="v">
+                                                    <option value="{$v}" <eq name="type1['h']" value="$v">selected</eq>>{$v}</option>
+                                                </volist>
+                                            </select>
+                                            小时
+                                            <select class="layui-input" name="type1[i]">
+                                                <volist name="time.i" id="v">
+                                                    <option value="{$v}" <eq name="type1['i']" value="$v">selected</eq>>{$v}</option>
+                                                </volist>
+                                            </select>
+                                            分钟
+                                            <button type="button" class="layui-btn layui-btn-sm" onclick="timesolt(1);">生成</button>
+                                            <br>
+                                            勾选可配送的时间段，如果需要加价，可在加价处输入金额，不填写则不加价。
+                                            <br>
+                                            <div class="timeperiodlist timeperiod1">
+                                                <volist name="type1.times" id="v">
+                                                    <div class="layui-input-inline">
+                                                        <input type="checkbox" lay-skin="primary" value="{$key}" name="type1[time][]" title="{$v['start_txt']}-{$v['end_txt']}" <eq name="v['isopen']" value="1">checked</eq>>
+                                                        加价 <input type="text" class="layui-input" name="type1[time_money][]" value="{$v['money']}"> 元
+                                                    </div>
+                                                </volist>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="layui-tab-item">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required">*</span>配送费</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type3[fee_mode]" lay-filter="3fee_mode" title="固定费用" <eq name="type3['fee_mode']" value="1">checked</eq> >
+                                            <input type="radio" value="2" name="type3[fee_mode]" lay-filter="3fee_mode" title='动态费用' <eq name="type3['fee_mode']" value="2">checked</eq> >
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 3feebd 3feebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            每单固定配送费 <input type="text" class="layui-input" name="type3[fix_money]" value="{$type3['fix_money']}"> 元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 3feebd 3feebd2">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            就近购买时每单固定配送费 <input type="text" class="layui-input" name="type3[nearby_money]" value="{$type3['nearby_money']|default=''}"> 元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 3feebd 3feebd2">
+                                        <label class="layui-form-label"><span class="form-required">*</span>距离附加费</label>
+                                        <div class="layui-input-block">
+                                            起始距离 <input type="text" class="layui-input" name="type3[distance_basic]" value="{$type3['distance_basic']}" >公里内,增加
+                                            <input type="text" class="layui-input" name="type3[distance_basic_money]" value="{$type3['distance_basic_money']}" >元
+                                            <br>
+                                            <br>
+                                            超出后每增加1公里，增加
+                                            <input type="text" class="layui-input" name="type3[distance_more_money]" value="{$type3['distance_more_money']}" >元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 3feebd 3feebd2">
+                                        <label class="layui-form-label"><span class="form-required"></span>距离计算方式</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type3[distance_mode]" title="直线距离" <eq name="type3['distance_mode']" value="1">checked</eq> >
+                                            <input type="radio" value="2" name="type3[distance_mode]" title='骑行规划距离' <eq name="type3['distance_mode']" value="2">checked</eq> >
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 3feebd 3feebd2">
+                                        <label class="layui-form-label"><span class="form-required"></span>计费距离取整</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type3[distance_type]" title="按实际距离" <eq name="type3['distance_type']" value="1">checked</eq> >
+                                            <input type="radio" value="2" name="type3[distance_type]" title='向上取整' <eq name="type3['distance_type']" value="2">checked</eq> >
+                                            <input type="radio" value="3" name="type3[distance_type]" title='向下取整' <eq name="type3['distance_type']" value="3">checked</eq> >
+                                            <br>
+                                            例如:订单距离为1.5公里，设置实际距离则按1.5公里收费；设置向上取整则按2公里收费；设置向下取整则按1公里收费。
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required"></span>服务时间</label>
+                                        <div class="layui-input-block timeperiod">
+                                            时段间隔
+                                            <select class="layui-input" name="type3[h]">
+                                                <volist name="time.h" id="v">
+                                                    <option value="{$v}" <eq name="type3['h']" value="$v">selected</eq> >{$v}</option>
+                                                </volist>
+                                            </select>
+                                            小时
+                                            <select class="layui-input" name="type3[i]">
+                                                <volist name="time.i" id="v">
+                                                    <option value="{$v}" <eq name="type3['i']" value="$v">selected</eq> >{$v}</option>
+                                                </volist>
+                                            </select>
+                                            分钟
+                                            <button type="button" class="layui-btn layui-btn-sm" onclick="timesolt(3);">生成</button>
+                                            <br>
+                                            勾选可配送的时间段，如果需要加价，可在加价处输入金额，不填写则不加价。
+                                            <br>
+                                            <div class="timeperiodlist timeperiod3">
+                                                <volist name="type3.times" id="v">
+                                                    <div class="layui-input-inline">
+                                                        <input type="checkbox" lay-skin="primary" value="{$key}" name="type3[time][]" title="{$v['start_txt']}-{$v['end_txt']}" <eq name="v['isopen']" value="1">checked</eq>>
+                                                        加价 <input type="text" class="layui-input" name="type3[time_money][]" value="{$v['money']}"> 元
+                                                    </div>
+                                                </volist>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="layui-tab-item">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required">*</span>配送费</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type4[fee_mode]" lay-filter="4fee_mode" title="固定费用" <eq name="type4['fee_mode']" value="1">checked</eq> >
+                                            <input type="radio" value="2" name="type4[fee_mode]" lay-filter="4fee_mode" title='动态费用' <eq name="type4['fee_mode']" value="2">checked</eq>>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 4feebd 4feebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            每单固定配送费 <input type="text" class="layui-input" name="type4[fix_money]" value="{$type4['fix_money']}"> 元
+                                        </div>
+                                    </div>
+
+
+                                    <div class="layui-form-item 4feebd 4feebd2">
+                                        <label class="layui-form-label"><span class="form-required">*</span>时间附加费</label>
+                                        <div class="layui-input-block">
+                                            起始时间 <input type="text" class="layui-input" name="type4[time_basic]" value="{$type4['time_basic']}" >分钟内,增加
+                                            <input type="text" class="layui-input" name="type4[time_basic_money]" value="{$type4['time_basic_money']}" >元
+                                            <br>
+                                            <br>
+                                            超出后每增加
+                                            <input type="text" class="layui-input" name="type4[time_more]" value="{$type4['time_more']}" >分钟，增加
+                                            <input type="text" class="layui-input" name="type4[time_more_money]" value="{$type4['time_more_money']}" >元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item feebd fee2">
+                                        <label class="layui-form-label"><span class="form-required"></span>计费时间取整</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type4[time_type]" title="按实际时间" <eq name="type4['time_type']" value="1">checked</eq> >
+                                            <input type="radio" value="2" name="type4[time_type]" title='向上取整' <eq name="type4['time_type']" value="2">checked</eq> >
+                                            <input type="radio" value="3" name="type4[time_type]" title='向下取整' <eq name="type4['time_type']" value="3">checked</eq> >
+                                            <br>
+                                            例如:设置 超出后每增加10分钟增加5元，超出15分钟，设置实际时间则按超出15分钟收费；设置向上取整则按超出20分钟收费；设置向下取整则按超出10分钟收费。
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required"></span>服务时间</label>
+                                        <div class="layui-input-block timeperiod">
+                                            时段间隔
+                                            <select class="layui-input" name="type4[h]">
+                                                <volist name="time.h" id="v">
+                                                    <option value="{$v}" <eq name="type4['h']" value="$v">selected</eq> >{$v}</option>
+                                                </volist>
+                                            </select>
+                                            小时
+                                            <select class="layui-input" name="type4[i]">
+                                                <volist name="time.i" id="v">
+                                                    <option value="{$v}" <eq name="type4['i']" value="$v">selected</eq> >{$v}</option>
+                                                </volist>
+                                            </select>
+                                            分钟
+                                            <button type="button" class="layui-btn layui-btn-sm" onclick="timesolt(4);">生成</button>
+                                            <br>
+                                            勾选可配送的时间段，如果需要加价，可在加价处输入金额，不填写则不加价。
+                                            <br>
+                                            <div class="timeperiodlist timeperiod4">
+                                                <volist name="type4.times" id="v">
+                                                    <div class="layui-input-inline">
+                                                        <input type="checkbox" lay-skin="primary" value="{$key}" name="type4[time][]" title="{$v['start_txt']}-{$v['end_txt']}" <eq name="v['isopen']" value="1">checked</eq>>
+                                                        加价 <input type="text" class="layui-input" name="type4[time_money][]" value="{$v['money']}"> 元
+                                                    </div>
+                                                </volist>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="layui-tab-item">
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required">*</span>基础费用</label>
+                                        <div class="layui-input-block">
+                                            每单固定费用 <input type="text" class="layui-input" name="type5[fix_money]" value="{$type5['fix_money']}"> 元
+                                            <br>
+                                            注：办理过程中的产生的预付费用，由用户手动填写支付
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required"></span>服务时间</label>
+                                        <div class="layui-input-block timeperiod">
+                                            时段间隔
+                                            <select class="layui-input" name="type5[h]">
+                                                <volist name="time.h" id="v">
+                                                    <option value="{$v}" <eq name="type5['h']" value="$v">selected</eq> >{$v}</option>
+                                                </volist>
+                                            </select>
+                                            小时
+                                            <select class="layui-input" name="type5[i]">
+                                                <volist name="time.i" id="v">
+                                                    <option value="{$v}" <eq name="type5['i']" value="$v">selected</eq> >{$v}</option>
+                                                </volist>
+                                            </select>
+                                            分钟
+                                            <button type="button" class="layui-btn layui-btn-sm" onclick="timesolt(5);">生成</button>
+                                            <br>
+                                            勾选可配送的时间段，如果需要加价，可在加价处输入金额，不填写则不加价。
+                                            <br>
+                                            <div class="timeperiodlist timeperiod5">
+                                                <volist name="type5.times" id="v">
+                                                    <div class="layui-input-inline">
+                                                        <input type="checkbox" lay-skin="primary" value="{$key}" name="type5[time][]" title="{$v['start_txt']}-{$v['end_txt']}" <eq name="v['isopen']" value="1">checked</eq>>
+                                                        加价 <input type="text" class="layui-input" name="type5[time_money][]" value="{$v['money']}"> 元
+                                                    </div>
+                                                </volist>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="layui-tab-item">
+<!--外卖费用-->
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required">*</span>配送费</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type6[fee_mode]" lay-filter="6fee_mode" title="固定费用" <eq name="type6['fee_mode']" value="1">checked</eq>>
+                                            <input type="radio" value="2" name="type6[fee_mode]" lay-filter="6fee_mode" title='动态费用' <eq name="type6['fee_mode']" value="2">checked</eq>>
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 6feebd 6feebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            每单固定配送费 <input type="text" class="layui-input" name="type6[fix_money]" value="{$type6['fix_money']}"> 元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 6feebd 6feebd2">
+                                        <label class="layui-form-label"><span class="form-required">*</span>距离附加费</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="0" name="type6[distance_switch]" lay-filter="6distance_switch" title="关闭" <eq name="type6['distance_switch']" value="0">checked</eq> >
+                                            <input type="radio" value="1" name="type6[distance_switch]" lay-filter="6distance_switch" title='开启' <eq name="type6['distance_switch']" value="1">checked</eq> >
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 6feebd 6feebd2 6distancebd 6distancebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span></label>
+                                        <div class="layui-input-block">
+                                            起始距离 <input type="text" class="layui-input" name="type6[distance_basic]" value="{$type6['distance_basic']}" >公里内,增加
+                                            <input type="text" class="layui-input" name="type6[distance_basic_money]" value="{$type6['distance_basic_money']}" >元
+                                            <br>
+                                            <br>
+                                            超出后每增加1公里，增加
+                                            <input type="text" class="layui-input" name="type6[distance_more_money]" value="{$type6['distance_more_money']}" >元
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 6feebd 6feebd2 6distancebd 6distancebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span>距离计算方式</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type6[distance_mode]" title="直线距离" <eq name="type6['distance_mode']" value="1">checked</eq> >
+<!--                                            <input type="radio" value="2" name="type6[distance_mode]" title='骑行规划距离' <eq name="type6['distance_mode']" value="2">checked</eq> >-->
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item 6feebd 6feebd2 6distancebd 6distancebd1">
+                                        <label class="layui-form-label"><span class="form-required"></span>计费距离取整</label>
+                                        <div class="layui-input-block">
+                                            <input type="radio" value="1" name="type6[distance_type]" title="按实际距离" <eq name="type6['distance_type']" value="1">checked</eq>>
+                                            <input type="radio" value="2" name="type6[distance_type]" title='向上取整' <eq name="type6['distance_type']" value="2">checked</eq>>
+                                            <input type="radio" value="3" name="type6[distance_type]" title='向下取整' <eq name="type6['distance_type']" value="3">checked</eq>>
+                                            <br>
+                                            例如:订单距离为1.5公里，设置实际距离则按1.5公里收费；设置向上取整则按2公里收费；设置向下取整则按1公里收费。
+                                        </div>
+                                    </div>
+
+
+                                    <div class="layui-form-item">
+                                        <label class="layui-form-label"><span class="form-required"></span>服务时间</label>
+                                        <div class="layui-input-block timeperiod">
+                                            时段间隔
+                                            <select class="layui-input" name="type6[h]">
+                                                <volist name="time.h" id="v">
+                                                    <option value="{$v}" <eq name="type6['h']" value="$v">selected</eq>>{$v}</option>
+                                                </volist>
+                                            </select>
+                                            小时
+                                            <select class="layui-input" name="type6[i]">
+                                                <volist name="time.i" id="v">
+                                                    <option value="{$v}" <eq name="type6['i']" value="$v">selected</eq>>{$v}</option>
+                                                </volist>
+                                            </select>
+                                            分钟
+                                            <button type="button" class="layui-btn layui-btn-sm" onclick="timesolt(6);">生成</button>
+                                            <br>
+                                            勾选可配送的时间段，如果需要加价，可在加价处输入金额，不填写则不加价。
+                                            <br>
+                                            <div class="timeperiodlist timeperiod6">
+                                                <volist name="type6.times" id="v">
+                                                    <div class="layui-input-inline">
+                                                        <input type="checkbox" lay-skin="primary" value="{$key}" name="type6[time][]" title="{$v['start_txt']}-{$v['end_txt']}" <eq name="v['isopen']" value="1">checked</eq>>
+                                                        加价 <input type="text" class="layui-input" name="type6[time_money][]" value="{$v['money']}"> 元
+                                                    </div>
+                                                </volist>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="layui-form-item ">
+                           
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item smallinput">
+                        <label class="layui-form-label"><span class="form-required">*</span>配送时长</label>
+                        <div class="layui-input-block">
+                            起始距离 <input type="text" class="layui-input" name="distance_basic" value="{$config['distance_basic'] ?? 0}" >公里内,配送时长
+                            <input type="text" class="layui-input" name="distance_basic_time" value="{$config['distance_basic_time'] ?? 0}" >分钟
+                            <br>
+                            超出后每增加1公里，增加
+                            <input type="text" class="layui-input" name="distance_more_time" value="{$config['distance_more_time'] ?? 0}" >分钟
+                        </div>
+<!--                        <div class="layui-input-block">-->
+<!--                            配送距离 × 电动车车速 <input type="text" class="layui-input" name="electrocar_km" value="{$config['electrocar_km'] ?? 0}" >km/h-->
+<!--                            +<input type="text" class="layui-input" name="reserve_time" value="{$config['reserve_time'] ?? 0}" >分钟-->
+<!--                        </div>-->
+                    </div>
+
+                    <div class="layui-form-item smallinput">
+                        <label class="layui-form-label"><span class="form-required">*</span>附近骑手</label>
+                        <div class="layui-input-block">
+                            显示距离 取件地、服务地 <input type="text" class="layui-input" name="rider_distance" value="{$config['rider_distance'] ?? ''}" >公里内的骑手
+                            <br>
+                            附近有骑手时，显示预计
+                            <input type="text" class="layui-input" name="rider_time" value="{$config['rider_time'] ?? ''}" >分钟内接单
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <input type="hidden" name="id" value="{$data.id}" />
+                            <button type="submit" class="layui-btn js-ajax-submit">{:lang('SAVE')}</button>
+                            <!--<a class="layui-btn layui-btn-primary btn-default" href="javascript:history.back(-1);">{:lang('BACK')}</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<include file="substation/public@script"/>
+
+<script>
+    Wind.use('layer');
+    var form;
+    function changeType(){
+        let list=$('input[name="type[]"]:checked');
+        $('.typebd').hide();
+        list.each(function (){
+            let type=$(this).val();
+
+            $('.typebd'+type).show();
+        });
+
+        $('.layui-tab-item').removeClass('layui-show');
+        $('#tabHeader li:visible').eq(0).click();
+
+    }
+
+    function changeMode1(){
+        let type=$('input[name="type1[fee_mode]"]:checked').val();
+        $('.1feebd').hide();
+        $('.1feebd'+type).show();
+
+        if(type==2){
+            changeDistance1();
+            changeWeight1();
+        }
+    }
+
+    function changeMode6(){
+        let type=$('input[name="type6[fee_mode]"]:checked').val();
+        $('.6feebd').hide();
+        $('.6feebd'+type).show();
+
+        if(type==2){
+            changeDistance6();
+        }
+    }
+
+    function changeDistance1(){
+        let type=$('input[name="type1[distance_switch]"]:checked').val();
+        $('.1distancebd').hide();
+        $('.1distancebd'+type).show();
+    }
+    function changeDistance6(){
+        let type=$('input[name="type6[distance_switch]"]:checked').val();
+        $('.6distancebd').hide();
+        $('.6distancebd'+type).show();
+    }
+
+    function changeWeight1(){
+        let type=$('input[name="type1[weight_switch]"]:checked').val();
+        $('.1weightbd').hide();
+        $('.1weightbd'+type).show();
+    }
+
+    function changeMode3(){
+        let type=$('input[name="type3[fee_mode]"]:checked').val();
+        $('.3feebd').hide();
+        $('.3feebd'+type).show();
+
+        changeDistance3();
+    }
+
+    function changeDistance3(){
+        let type=$('input[name="type3[distance_switch]"]:checked').val();
+        $('.3distancebd').hide();
+        $('.3distancebd'+type).show();
+    }
+
+    function changeMode4(){
+        let type=$('input[name="type4[fee_mode]"]:checked').val();
+        $('.4feebd').hide();
+        $('.4feebd'+type).show();
+    }
+
+    function PrefixInteger(num, length) {
+        return (Array(length).join('0') + num).slice(-length);
+    }
+
+    function timesolt(type){
+        let h=$('select[name="type'+type+'[h]"]').val();
+        let i=$('select[name="type'+type+'[i]"]').val();
+
+        let timeNum=Number(h) * 60 + Number(i);
+
+        if(timeNum<30){
+            layer.msg('服务时段不能少于30分钟');
+            return !1;
+        }
+
+        let html='';
+        let end=60*24;
+        for(let n=0,m=0;n<end;m++){
+            let start=n;
+            let end_t=start+timeNum;
+            if(end_t>end){
+                end_t=end;
+            }
+            n=end_t;
+
+            let start_h= Math.floor(start / 60);
+            let start_i= start % 60;
+            start_h=PrefixInteger(start_h,2);
+            start_i=PrefixInteger(start_i,2);
+            let start_txt=start_h+':'+start_i;
+
+            let end_h= Math.floor(end_t / 60);
+            let end_i= end_t % 60;
+            end_h=PrefixInteger(end_h,2);
+            end_i=PrefixInteger(end_i,2);
+            let end_txt=end_h+':'+end_i;
+
+            html+='<div class="layui-input-inline"><input type="checkbox" lay-skin="primary" value="'+m+'" name="type'+type+'[time][]" title=\''+start_txt+'-'+end_txt+'\'> 加价 <input type="text" class="layui-input" name="type'+type+'[time_money][]" value=""> 元 </div>';
+        }
+
+        $('.timeperiod'+type).html(html);
+        form.render();
+    }
+
+    (function (){
+
+        changeType();
+        changeMode1();
+        changeMode6();
+        changeMode3();
+        changeMode4();
+
+        layui.use(['layer', 'jquery', 'form'], function () {
+            var layer = layui.layer,
+                $ = layui.jquery;
+            form=layui.form;
+
+            $('#tabHeader li:visible').eq(0).click();
+
+
+
+            form.on('checkbox(type)', function(data){
+                changeType();
+            });
+
+            form.on('radio(1fee_mode)', function(data){
+                changeMode1();
+            });
+
+            form.on('radio(6fee_mode)', function(data){
+                changeMode6();
+            });
+
+            form.on('radio(1distance_switch)', function(data){
+                changeDistance1();
+            });
+            form.on('radio(6distance_switch)', function(data){
+                changeDistance6();
+            });
+
+            form.on('radio(1weight_switch)', function(data){
+                changeWeight1();
+            });
+
+            form.on('radio(3fee_mode)', function(data){
+                changeMode3();
+            });
+
+            form.on('radio(4fee_mode)', function(data){
+                changeMode4();
+            });
+
+        });
+
+    })()
+</script>
+</body>
+</html>
